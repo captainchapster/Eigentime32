@@ -37,6 +37,8 @@
 		(pad_to_mask_clearance 0)
 		(allow_soldermask_bridges_in_footprints no)
 		(tenting front back)
+		(aux_axis_origin 148.5 105)
+		(grid_origin 148.5 105)
 		(pcbplotparams
 			(layerselection 0x00000000_00000000_55555555_5755f5ff)
 			(plot_on_all_layers_selection 0x00000000_00000000_00000000_00000000)
@@ -79,8 +81,8 @@
 	)
 	(net 0 "")
 	(gr_circle
-		(center 0 0)
-		(end 20 0)
+		(center 148.5 105)
+		(end 168.5 105)
 		(stroke
 			(width 0.05)
 			(type default)
