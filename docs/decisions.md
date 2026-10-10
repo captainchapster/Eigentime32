@@ -9,7 +9,7 @@
 | 2026-10-10 | TPS61099 boost at 3.0 V for the LCD | Keeps the LCD in spec as the cell sags |
 | 2026-10-10 | TPS22916C load switch ahead of the TPS61099 (confirmed by Alex) | Takes the boost's 0.5–1.6 µA shutdown current and the 100 µF bulk's leakage off the cell while the lid is shut |
 | 2026-10-10 | 470 Ω inrush resistor after the load switch; 1M/470 nF delay on the boost EN | The switch's slew alone would pull 220–350 mA from the coin cell; the delay lets the bulk charge before the boost starts (~0.3 s to display power) |
-| 2026-10-10 | Keep the ST25DV04K NFC tag | Yearly phone recalibration controls crystal aging |
+| 2026-10-10 | Keep the NFC tag: ST25DV04KC-IE6C3 (UFDFPN8); the ST25DV04K is NRND | Yearly phone recalibration controls crystal aging; GPO works from RF power, so a phone tap wakes the MCU |
 | 2026-10-10 | CR2032 in a Keystone 3034 SMT retainer (4.06 mm) instead of CR2450 | ~8.4 mm total thickness; still ~2× capacity margin at ten years |
 | 2026-10-10 | DMG2305UX P-FET reverse protection, gate to GND | Fully on at 1.8 V gate drive (200 mΩ max); off with a reversed cell |
 | 2026-10-10 | STM32L031G6U6 (UFQFPN28) as the MCU | 19 usable I/O after SWD; pin map in power-pins-accuracy.md §5 |
@@ -25,5 +25,5 @@
 
 ## To verify against datasheets
 - LS013B7DH03 outline drawing and FPC connector part
-- ST25DV04K I2C pins while its VCC is off (the bus pull-ups stay on VBAT)
+- ST25DV04KC I2C pins while its VCC is off (the bus pull-ups stay on VBAT); DS13519 doesn't specify it, so check on the first board
 - Footprints for the reed switch and buttons

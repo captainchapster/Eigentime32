@@ -1,0 +1,893 @@
+(kicad_sch
+	(version 20250114)
+	(generator "eeschema")
+	(generator_version "9.0")
+	(uuid "1b2c3d4e-5f60-4172-8d8e-9f0a1b2c3d45")
+	(paper "A4")
+	(title_block (title "Eigentime32 - NFC") (comment 1 "ST25DV04KC dynamic tag, switched VCC, PCB loop antenna"))
+	(lib_symbols
+		(symbol "Device:Antenna_Loop"
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(offset 1.016)
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "AE"
+				(at 1.27 6.35 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "Antenna_Loop"
+				(at 1.27 5.08 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "~"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "Loop antenna"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "loop antenna"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "Antenna_Loop_0_1"
+				(polyline
+					(pts
+						(xy 2.54 -3.81) (xy 2.54 -2.54) (xy 5.08 0) (xy 1.27 3.81) (xy -2.54 0) (xy 0 -2.54) (xy 0 -3.81)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "Antenna_Loop_1_1"
+				(pin input line
+					(at 0 -5.08 90)
+					(length 2.54)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at 2.54 -5.08 90)
+					(length 2.54)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+		(symbol "Device:C_Small"
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(offset 0.254)
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "C"
+				(at 0.254 1.778 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+				)
+			)
+			(property "Value" "C_Small"
+				(at 0.254 -2.032 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "~"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "Unpolarized capacitor, small symbol"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "capacitor cap"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "C_*"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "C_Small_0_1"
+				(polyline
+					(pts
+						(xy -1.524 0.508) (xy 1.524 0.508)
+					)
+					(stroke
+						(width 0.3048)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.524 -0.508) (xy 1.524 -0.508)
+					)
+					(stroke
+						(width 0.3302)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "C_Small_1_1"
+				(pin passive line
+					(at 0 2.54 270)
+					(length 2.032)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 0 -2.54 90)
+					(length 2.032)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+		(symbol "Device:R_Small"
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(offset 0.254)
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "R"
+				(at 0 0 90)
+				(effects
+					(font
+						(size 1.016 1.016)
+					)
+				)
+			)
+			(property "Value" "R_Small"
+				(at 1.778 0 90)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "~"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "Resistor, small symbol"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "R resistor"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "R_*"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "R_Small_0_1"
+				(rectangle
+					(start -0.762 1.778)
+					(end 0.762 -1.778)
+					(stroke
+						(width 0.2032)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "R_Small_1_1"
+				(pin passive line
+					(at 0 2.54 270)
+					(length 0.762)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 0 -2.54 90)
+					(length 0.762)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+		(symbol "Eigentime32:ST25DV04KC-IE6C3"
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "U"
+				(at 6.35 6.35 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "ST25DV04KC-IE6C3"
+				(at 10.795 -6.35 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" "Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.36x1.46mm"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "https://www.st.com/resource/en/datasheet/st25dv04kc.pdf"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "Dynamic NFC/RFID tag, 4 kbit, I2C, open-drain GPO, UFDFPN8; VCC pin typed passive because a GPIO supplies it"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "NFC Tag"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "DFN*3x2mm*P0.5mm*"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "ST25DV04KC-IE6C3_1_1"
+				(rectangle
+					(start -7.62 5.08)
+					(end 7.62 -5.08)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type background)
+					)
+				)
+				(pin bidirectional line
+					(at -10.16 2.54 0)
+					(length 2.54)
+					(name "SDA"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "5"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at -10.16 0 0)
+					(length 2.54)
+					(name "SCL"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "6"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin open_collector line
+					(at -10.16 -2.54 0)
+					(length 2.54)
+					(name "GPO"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "7"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 0 7.62 270)
+					(length 2.54)
+					(name "VCC"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "8"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin power_in line
+					(at 0 -7.62 90)
+					(length 2.54)
+					(name "VSS"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "4"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin no_connect line
+					(at 2.54 5.08 270)
+					(length 2.54)
+					(hide yes)
+					(name "NC"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "9"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin power_out line
+					(at 10.16 2.54 180)
+					(length 2.54)
+					(name "V_EH"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 10.16 0 180)
+					(length 2.54)
+					(name "AC0"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 10.16 -2.54 180)
+					(length 2.54)
+					(name "AC1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+		(symbol "power:GND"
+			(power)
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(offset 0)
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "#PWR"
+				(at 0 -6.35 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Value" "GND"
+				(at 0 -3.81 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "global power"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "GND_0_1"
+				(polyline
+					(pts
+						(xy 0 0) (xy 0 -1.27) (xy 1.27 -1.27) (xy 0 -2.54) (xy -1.27 -1.27) (xy 0 -1.27)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "GND_1_1"
+				(pin power_in line
+					(at 0 0 270)
+					(length 0)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+	)
+	(wire (pts (xy 127 83.82) (xy 127 81.28)) (stroke (width 0) (type default)) (uuid "4f6117b8-cc65-5143-8fbc-b6594a1e4356"))
+	(wire (pts (xy 127 99.06) (xy 127 101.6)) (stroke (width 0) (type default)) (uuid "7194b300-f649-5e3c-af94-89acd4c5b01d"))
+	(wire (pts (xy 116.84 88.9) (xy 114.3 88.9)) (stroke (width 0) (type default)) (uuid "20870a02-8a19-5080-9b7c-ffe0e50fc433"))
+	(wire (pts (xy 116.84 91.44) (xy 114.3 91.44)) (stroke (width 0) (type default)) (uuid "c38069ab-ac8c-5d86-9833-6856d3e201a1"))
+	(wire (pts (xy 116.84 93.98) (xy 114.3 93.98)) (stroke (width 0) (type default)) (uuid "0ace3caf-363d-5349-af34-b88de20a022a"))
+	(wire (pts (xy 137.16 91.44) (xy 139.7 91.44)) (stroke (width 0) (type default)) (uuid "793be96f-96c2-596f-b40f-d29600380b62"))
+	(wire (pts (xy 137.16 93.98) (xy 139.7 93.98)) (stroke (width 0) (type default)) (uuid "9eacf6b1-5db8-5368-99d6-7fbbb2575f56"))
+	(wire (pts (xy 147.32 68.58) (xy 147.32 66.04)) (stroke (width 0) (type default)) (uuid "5a45ea03-b6dd-55bd-9099-79e592411a21"))
+	(wire (pts (xy 147.32 73.66) (xy 147.32 76.2)) (stroke (width 0) (type default)) (uuid "07b14124-5795-5064-833e-64b0c9ad1d60"))
+	(wire (pts (xy 157.48 68.58) (xy 157.48 66.04)) (stroke (width 0) (type default)) (uuid "c24618c0-d38a-5c56-ad3d-e12ffe2698e2"))
+	(wire (pts (xy 157.48 73.66) (xy 157.48 76.2)) (stroke (width 0) (type default)) (uuid "064dd789-24cb-5edd-867b-6ae5482f161b"))
+	(wire (pts (xy 104.14 96.52) (xy 104.14 93.98)) (stroke (width 0) (type default)) (uuid "7d54e357-afd2-50d8-bdc8-27d8a963a8de"))
+	(wire (pts (xy 104.14 101.6) (xy 104.14 104.14)) (stroke (width 0) (type default)) (uuid "526903aa-a7c7-5b52-9899-17433db2ac3b"))
+	(wire (pts (xy 165.1 91.44) (xy 165.1 93.98)) (stroke (width 0) (type default)) (uuid "497688ab-4329-5a20-8bc5-569d75181a7c"))
+	(wire (pts (xy 167.64 91.44) (xy 167.64 93.98)) (stroke (width 0) (type default)) (uuid "96afa657-812b-5f61-bc88-8d21e632865d"))
+	(wire (pts (xy 182.88 93.98) (xy 182.88 91.44)) (stroke (width 0) (type default)) (uuid "018de689-f190-5b2c-b0f1-901d0c9b6115"))
+	(wire (pts (xy 182.88 99.06) (xy 182.88 101.6)) (stroke (width 0) (type default)) (uuid "28096d79-0da0-55f5-8a3d-5f06d89bbce1"))
+	(text "NFC (ST25DV04KC, DS13519 Rev 2)" (exclude_from_sim no) (at 25.4 45.72 0) (effects (font (size 2 2)) (justify left bottom)) (uuid "ba7cdc21-b0df-55da-97aa-499d0b5befad"))
+	(text "ST25DV04K is NRND; the KC version replaces it. UFDFPN8 (2x3 mm) is the smallest package ordered\nfor the 04KC and has the open-drain GPO. Its exposed pad must be left floating (symbol pin 9 is NC).\nVCC comes from MCU PB0 only while awake: standby with VCC on is 72-100 uA (LPD needs the 12-pin package).\nGPO: open drain, active low (level or low pulse). Works from RF power alone with VCC off (DS13519\nFigure 7), so a phone tap wakes the MCU on PA8 / EXTI8. Default GPO mode is RF field change.\nPull-up R14 to always-on VBAT, 1M (> 4.7k required): no current while GPO is high-Z.\nI2C with VCC off: DS13519 gives leakage (0.1 uA max) only in standby; the I/O absolute maximum is\n-0.5 to 6.5 V independent of VCC, which points to no clamp to VCC. Check on the first board; fallback:\nmove R6/R7 (RTC sheet) to NFC_VCC and raise PB0 before any I2C transfer.\nCoil: L = 1/(w^2 C) = 4.8 uH for 28.5 pF (4.4 uH with ~3 pF parasitic). 7-8 turns, 39 mm OD,\n0.15/0.15 mm on F.Cu (r 17.25-19.5 mm), underpass on B.Cu. The CR2032 and holder lower L (tune upward)\nand cut Q. 8 turns is ~5.5 uH free air, so with the cell it should land at or below 4.8 uH (f >= 13.56 MHz);\nC22 then pulls f down after a VNA check. If it measures low, drop to 7 turns." (exclude_from_sim no) (at 25.4 147.32 0) (effects (font (size 1.27 1.27)) (justify left bottom)) (uuid "9f0b0d96-afd6-5e49-b105-3bc33b55f691"))
+	(hierarchical_label "NFC_VCC" (shape input) (at 127 81.28 90) (effects (font (size 1.27 1.27)) (justify right)) (uuid "f6f1dced-794c-5ce7-ab3c-a424b4484ee4"))
+	(hierarchical_label "SDA" (shape bidirectional) (at 114.3 88.9 180) (effects (font (size 1.27 1.27)) (justify right)) (uuid "189bc198-cefe-53d7-8e6d-5fd23b2a7336"))
+	(hierarchical_label "SCL" (shape input) (at 114.3 91.44 180) (effects (font (size 1.27 1.27)) (justify right)) (uuid "e475a930-1008-5ec4-8ad0-d0bad7114287"))
+	(hierarchical_label "NFC_GPO" (shape output) (at 114.3 93.98 180) (effects (font (size 1.27 1.27)) (justify right)) (uuid "6c232ad7-7427-5eb5-a01b-f8467a17ad18"))
+	(label "AC0" (at 139.7 91.44 0) (effects (font (size 1.27 1.27)) (justify left bottom)) (uuid "10623294-632f-5942-a0c5-3366d03817a6"))
+	(label "AC1" (at 139.7 93.98 0) (effects (font (size 1.27 1.27)) (justify left bottom)) (uuid "7e0ece0b-89eb-5cb2-a02e-52698314ddd8"))
+	(label "NFC_VCC" (at 147.32 66.04 90) (effects (font (size 1.27 1.27)) (justify left bottom)) (uuid "a7e8fcfe-3040-5bfb-9fbf-fceaf1eecf4e"))
+	(label "NFC_VCC" (at 157.48 66.04 90) (effects (font (size 1.27 1.27)) (justify left bottom)) (uuid "53ebb94d-579a-5da8-9e74-01a11573a177"))
+	(hierarchical_label "VBAT" (shape input) (at 104.14 93.98 90) (effects (font (size 1.27 1.27)) (justify right)) (uuid "305b458f-0209-5379-814f-85a9a4043ae0"))
+	(label "NFC_GPO" (at 104.14 104.14 270) (effects (font (size 1.27 1.27)) (justify right bottom)) (uuid "c2ab279f-5c86-5c1b-bb27-b2c5ef88f8c3"))
+	(label "AC0" (at 165.1 93.98 270) (effects (font (size 1.27 1.27)) (justify right bottom)) (uuid "da974a4a-eaa8-5d39-bb8b-6c1651185462"))
+	(label "AC1" (at 167.64 93.98 270) (effects (font (size 1.27 1.27)) (justify right bottom)) (uuid "4769f9d3-a513-5717-96af-4695878c852d"))
+	(label "AC0" (at 182.88 91.44 90) (effects (font (size 1.27 1.27)) (justify left bottom)) (uuid "48490b7a-46de-536c-b97e-a8ff54a743ab"))
+	(label "AC1" (at 182.88 101.6 270) (effects (font (size 1.27 1.27)) (justify right bottom)) (uuid "af34be86-ab2b-50bd-89e8-6ccfc842f2b6"))
+	(no_connect (at 137.16 88.9) (uuid "d66f0ff6-2a50-5e86-9acc-a262f88adbcf"))
+	(symbol (lib_id "Eigentime32:ST25DV04KC-IE6C3") (at 127 91.44 0) (unit 1)
+		(exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no)
+		(uuid "8bec32ed-8728-53bd-85f2-859c96bfd83d")
+		(property "Reference" "U8" (at 130.81 101.6 0) (effects (font (size 1.27 1.27)) (justify left)))
+		(property "Value" "ST25DV04KC-IE6C3" (at 130.81 104.14 0) (effects (font (size 1.27 1.27)) (justify left)))
+		(property "Footprint" "Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.36x1.46mm" (at 127 91.44 0) (effects (font (size 1.27 1.27)) (hide yes)))
+		(property "Datasheet" "https://www.st.com/resource/en/datasheet/st25dv04kc.pdf" (at 127 91.44 0) (effects (font (size 1.27 1.27)) (hide yes)))
+		(property "Description" "Dynamic NFC tag, 4 kbit, open-drain GPO, UFDFPN8 2x3 mm; exposed pad must float" (at 127 91.44 0) (effects (font (size 1.27 1.27)) (hide yes)))
+		(property "Manufacturer" "STMicroelectronics" (at 127 91.44 0) (effects (font (size 1.27 1.27)) (hide yes)))
+		(property "MPN" "ST25DV04KC-IE6C3" (at 127 91.44 0) (effects (font (size 1.27 1.27)) (hide yes)))
+		(pin "1" (uuid "fcc6b0a9-c40f-5cc6-8117-a81dab1b1aed"))
+		(pin "2" (uuid "56a753c1-eb33-5a9c-867e-23e76ee0bd76"))
+		(pin "3" (uuid "c405a770-7529-564d-9dbf-0366333c7ac1"))
+		(pin "4" (uuid "b3947e3e-e65c-567d-8af0-c6f934069b99"))
+		(pin "5" (uuid "ea1c60c2-9049-56f7-aca0-e65ee5459545"))
+		(pin "6" (uuid "4f3fd68b-efa8-5f6a-a423-662873d5c39f"))
+		(pin "7" (uuid "88fe2c2c-0810-51b3-aeb0-6e8960fc4f3c"))
+		(pin "8" (uuid "3404aeed-9f5f-574c-9f59-b2b6479fcb6b"))
+		(pin "9" (uuid "b7526b18-d228-558b-90e8-90fedd0ba0db"))
+		(instances (project "Eigentime32" (path "/6b2f6c1e-3a0d-4e6b-9a51-0e5c2f3d7a10/e7a5c6d8-9fa1-4cb3-8e3f-4a5b6c7d8e9f" (reference "U8") (unit 1))))
+	)
+	(symbol (lib_id "power:GND") (at 127 101.6 0) (unit 1)
+		(exclude_from_sim no) (in_bom no) (on_board no) (dnp no)
+		(uuid "ebcb9f24-6c8e-5377-aff6-99701a4bb43c")
+		(property "Reference" "#PWR001" (at 127 107.95 0) (effects (font (size 1.27 1.27)) (hide yes)))
+		(property "Value" "GND" (at 127 105.41 0) (effects (font (size 1.27 1.27))))
+		(property "Footprint" "" (at 127 101.6 0) (effects (font (size 1.27 1.27)) (hide yes)))
+		(property "Datasheet" "~" (at 127 101.6 0) (effects (font (size 1.27 1.27)) (hide yes)))
+		(property "Description" "" (at 127 101.6 0) (effects (font (size 1.27 1.27)) (hide yes)))
+		(pin "1" (uuid "4378340c-8002-5c17-b263-6f81a9010cc7"))
+		(instances (project "Eigentime32" (path "/6b2f6c1e-3a0d-4e6b-9a51-0e5c2f3d7a10/e7a5c6d8-9fa1-4cb3-8e3f-4a5b6c7d8e9f" (reference "#PWR001") (unit 1))))
+	)
+	(symbol (lib_id "Device:C_Small") (at 147.32 71.12 0) (unit 1)
+		(exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no)
+		(uuid "a1b0379f-e5cf-5e2a-a5b8-364e86e873dc")
+		(property "Reference" "C21" (at 149.86 69.85 0) (effects (font (size 1.27 1.27)) (justify left)))
+		(property "Value" "100n" (at 149.86 72.39 0) (effects (font (size 1.27 1.27)) (justify left)))
+		(property "Footprint" "Capacitor_SMD:C_0402_1005Metric" (at 147.32 71.12 0) (effects (font (size 1.27 1.27)) (hide yes)))
+		(property "Datasheet" "~" (at 147.32 71.12 0) (effects (font (size 1.27 1.27)) (hide yes)))
+		(property "Description" "U8 VCC decoupling (ST: 10-100 nF at VCC/VSS)" (at 147.32 71.12 0) (effects (font (size 1.27 1.27)) (hide yes)))
+		(property "Manufacturer" "Murata" (at 147.32 71.12 0) (effects (font (size 1.27 1.27)) (hide yes)))
+		(property "MPN" "GRM155R71C104KA88D" (at 147.32 71.12 0) (effects (font (size 1.27 1.27)) (hide yes)))
+		(pin "1" (uuid "64bc2ac3-bd0e-5139-9d2e-de4a59258b9e"))
+		(pin "2" (uuid "646378ec-4c23-51b2-b8d2-f91075eca768"))
+		(instances (project "Eigentime32" (path "/6b2f6c1e-3a0d-4e6b-9a51-0e5c2f3d7a10/e7a5c6d8-9fa1-4cb3-8e3f-4a5b6c7d8e9f" (reference "C21") (unit 1))))
+	)
+	(symbol (lib_id "power:GND") (at 147.32 76.2 0) (unit 1)
+		(exclude_from_sim no) (in_bom no) (on_board no) (dnp no)
+		(uuid "e8001cec-a67b-5a45-89bb-6132e7dfb307")
+		(property "Reference" "#PWR002" (at 147.32 82.55 0) (effects (font (size 1.27 1.27)) (hide yes)))
+		(property "Value" "GND" (at 147.32 80.01 0) (effects (font (size 1.27 1.27))))
+		(property "Footprint" "" (at 147.32 76.2 0) (effects (font (size 1.27 1.27)) (hide yes)))
+		(property "Datasheet" "~" (at 147.32 76.2 0) (effects (font (size 1.27 1.27)) (hide yes)))
+		(property "Description" "" (at 147.32 76.2 0) (effects (font (size 1.27 1.27)) (hide yes)))
+		(pin "1" (uuid "0e0efe54-1b15-5a0a-979e-cd455cfc5d08"))
+		(instances (project "Eigentime32" (path "/6b2f6c1e-3a0d-4e6b-9a51-0e5c2f3d7a10/e7a5c6d8-9fa1-4cb3-8e3f-4a5b6c7d8e9f" (reference "#PWR002") (unit 1))))
+	)
+	(symbol (lib_id "Device:R_Small") (at 157.48 71.12 0) (unit 1)
+		(exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no)
+		(uuid "3d5b3445-6f4d-5ced-9ddd-a66019e2c84e")
+		(property "Reference" "R15" (at 160.02 69.85 0) (effects (font (size 1.27 1.27)) (justify left)))
+		(property "Value" "100k" (at 160.02 72.39 0) (effects (font (size 1.27 1.27)) (justify left)))
+		(property "Footprint" "Resistor_SMD:R_0402_1005Metric" (at 157.48 71.12 0) (effects (font (size 1.27 1.27)) (hide yes)))
+		(property "Datasheet" "~" (at 157.48 71.12 0) (effects (font (size 1.27 1.27)) (hide yes)))
+		(property "Description" "Holds NFC_VCC low while PB0 is Hi-Z (KC errata: VCC must not float)" (at 157.48 71.12 0) (effects (font (size 1.27 1.27)) (hide yes)))
+		(property "Manufacturer" "Yageo" (at 157.48 71.12 0) (effects (font (size 1.27 1.27)) (hide yes)))
+		(property "MPN" "RC0402FR-07100KL" (at 157.48 71.12 0) (effects (font (size 1.27 1.27)) (hide yes)))
+		(pin "1" (uuid "2cd8c35b-7356-5732-9a4c-cd474f123dc0"))
+		(pin "2" (uuid "9f743b7e-e1e0-5603-ae6e-0b6bfc7a53f2"))
+		(instances (project "Eigentime32" (path "/6b2f6c1e-3a0d-4e6b-9a51-0e5c2f3d7a10/e7a5c6d8-9fa1-4cb3-8e3f-4a5b6c7d8e9f" (reference "R15") (unit 1))))
+	)
+	(symbol (lib_id "power:GND") (at 157.48 76.2 0) (unit 1)
+		(exclude_from_sim no) (in_bom no) (on_board no) (dnp no)
+		(uuid "daab8529-c4ae-51d6-9189-2baa901c7c9f")
+		(property "Reference" "#PWR003" (at 157.48 82.55 0) (effects (font (size 1.27 1.27)) (hide yes)))
+		(property "Value" "GND" (at 157.48 80.01 0) (effects (font (size 1.27 1.27))))
+		(property "Footprint" "" (at 157.48 76.2 0) (effects (font (size 1.27 1.27)) (hide yes)))
+		(property "Datasheet" "~" (at 157.48 76.2 0) (effects (font (size 1.27 1.27)) (hide yes)))
+		(property "Description" "" (at 157.48 76.2 0) (effects (font (size 1.27 1.27)) (hide yes)))
+		(pin "1" (uuid "216b8ae4-cad5-5227-bb27-9dbf6073f2c9"))
+		(instances (project "Eigentime32" (path "/6b2f6c1e-3a0d-4e6b-9a51-0e5c2f3d7a10/e7a5c6d8-9fa1-4cb3-8e3f-4a5b6c7d8e9f" (reference "#PWR003") (unit 1))))
+	)
+	(symbol (lib_id "Device:R_Small") (at 104.14 99.06 0) (unit 1)
+		(exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no)
+		(uuid "e107b418-74ed-5242-b78c-d87695e758d5")
+		(property "Reference" "R14" (at 106.68 97.79 0) (effects (font (size 1.27 1.27)) (justify left)))
+		(property "Value" "1M" (at 106.68 100.33 0) (effects (font (size 1.27 1.27)) (justify left)))
+		(property "Footprint" "Resistor_SMD:R_0402_1005Metric" (at 104.14 99.06 0) (effects (font (size 1.27 1.27)) (hide yes)))
+		(property "Datasheet" "~" (at 104.14 99.06 0) (effects (font (size 1.27 1.27)) (hide yes)))
+		(property "Description" "GPO pull-up to always-on VBAT; draws 3 uA only while GPO is low" (at 104.14 99.06 0) (effects (font (size 1.27 1.27)) (hide yes)))
+		(property "Manufacturer" "Yageo" (at 104.14 99.06 0) (effects (font (size 1.27 1.27)) (hide yes)))
+		(property "MPN" "RC0402FR-071ML" (at 104.14 99.06 0) (effects (font (size 1.27 1.27)) (hide yes)))
+		(pin "1" (uuid "b82c9316-c4c7-5952-8156-81b7f1e96c0f"))
+		(pin "2" (uuid "fb9eb635-546d-5352-a563-b1f53382e3f6"))
+		(instances (project "Eigentime32" (path "/6b2f6c1e-3a0d-4e6b-9a51-0e5c2f3d7a10/e7a5c6d8-9fa1-4cb3-8e3f-4a5b6c7d8e9f" (reference "R14") (unit 1))))
+	)
+	(symbol (lib_id "Device:Antenna_Loop") (at 165.1 86.36 0) (unit 1)
+		(exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no)
+		(uuid "9e132f34-5fab-5716-a604-ab9b89382fd3")
+		(property "Reference" "AE1" (at 170.18 81.28 0) (effects (font (size 1.27 1.27)) (justify left)))
+		(property "Value" "NFC coil" (at 170.18 83.82 0) (effects (font (size 1.27 1.27)) (justify left)))
+		(property "Footprint" "Eigentime32:NFC_PCB_Coil_D39mm_Placeholder" (at 165.1 86.36 0) (effects (font (size 1.27 1.27)) (hide yes)))
+		(property "Datasheet" "~" (at 165.1 86.36 0) (effects (font (size 1.27 1.27)) (hide yes)))
+		(property "Description" "PCB loop, target ~4.8 uH with the 28.5 pF internal tuning cap; drawn in layout" (at 165.1 86.36 0) (effects (font (size 1.27 1.27)) (hide yes)))
+		(pin "1" (uuid "5ce13666-9c0b-5a0a-bde5-04a75a1b8b1c"))
+		(pin "2" (uuid "64203bff-225d-56bc-bd66-b1f36ec7df1e"))
+		(instances (project "Eigentime32" (path "/6b2f6c1e-3a0d-4e6b-9a51-0e5c2f3d7a10/e7a5c6d8-9fa1-4cb3-8e3f-4a5b6c7d8e9f" (reference "AE1") (unit 1))))
+	)
+	(symbol (lib_id "Device:C_Small") (at 182.88 96.52 0) (unit 1)
+		(exclude_from_sim no) (in_bom yes) (on_board yes) (dnp yes)
+		(uuid "e2c6c038-8743-5f9b-b4f9-1be2a90dd734")
+		(property "Reference" "C22" (at 185.42 95.25 0) (effects (font (size 1.27 1.27)) (justify left)))
+		(property "Value" "DNP" (at 185.42 97.79 0) (effects (font (size 1.27 1.27)) (justify left)))
+		(property "Footprint" "Capacitor_SMD:C_0402_1005Metric" (at 182.88 96.52 0) (effects (font (size 1.27 1.27)) (hide yes)))
+		(property "Datasheet" "~" (at 182.88 96.52 0) (effects (font (size 1.27 1.27)) (hide yes)))
+		(property "Description" "Optional parallel tuning cap across AC0/AC1; fit only if the coil tunes high" (at 182.88 96.52 0) (effects (font (size 1.27 1.27)) (hide yes)))
+		(property "Manufacturer" "TBD" (at 182.88 96.52 0) (effects (font (size 1.27 1.27)) (hide yes)))
+		(property "MPN" "C0G 0402, value set at tuning" (at 182.88 96.52 0) (effects (font (size 1.27 1.27)) (hide yes)))
+		(pin "1" (uuid "b911e634-feb2-5b79-aba5-91b2b6c5d4cc"))
+		(pin "2" (uuid "182e342c-3206-5f86-a296-6fa82543f82e"))
+		(instances (project "Eigentime32" (path "/6b2f6c1e-3a0d-4e6b-9a51-0e5c2f3d7a10/e7a5c6d8-9fa1-4cb3-8e3f-4a5b6c7d8e9f" (reference "C22") (unit 1))))
+	)
+	(embedded_fonts no)
+)
