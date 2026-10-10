@@ -1,0 +1,4 @@
+(sym_lib_table
+	(version 7)
+	(lib (name "Eigentime32")(type "KiCad")(uri "${KIPRJMOD}/Eigentime32.kicad_sym")(options "")(descr "Project symbols"))
+)
