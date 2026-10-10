@@ -38,6 +38,7 @@
 | 2026-10-10 | Round window: Ø23.4 mm aperture centred on the LCD active area (1.85 mm above board centre) under a Ø26 x 1.0 mm flat mineral crystal (decided by Alex, 2026-10-10) | Classic look; off-the-shelf glass. The square's corners are hidden, so the watch face is drawn round |
 | 2026-10-10 | Side buttons pressed through flexure tabs printed in the shell wall; ribs either side of each button body lock the board's rotation | No loose plungers; the tabs line up with the actuators by construction |
 | 2026-10-10 | Lid sensing magnet: Ø3 x 1 mm N52 in the lid over U9 (~90 G at the sensor vs 9 G typ trip) | Big margin; the CT8132 axis is unconfirmed, so the pocket position is a parameter |
+| 2026-10-10 | LCD retention: panel back taped to the frame with 0.05 mm transfer tape (3M 467MP); frame ears at 3, 9 and 12 o'clock carry the bezel's clamp load (0.15 mm crush ribs) down through the board and cell holder to the floor; bezel clears the glass by 0.05 mm | Before this nothing fixed the panel: it sat loose on a loose frame, held only by the bezel pocket and the FPC. Clamping through the frame keeps all load off the glass (Sharp: no pressure on the panel); case-only change, no board change |
 
 ## Proposed, not yet confirmed
 - RV-3032 CLKOUT at 1 Hz drives the LCD EXTCOMIN (through a buffer)

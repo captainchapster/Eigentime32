@@ -120,7 +120,12 @@ def main(out):
     sect += [(B["pcb"].cut(cut), COL["pcb"], 1), (parts.cut(cut), COL["parts"], 1),
              (B["LCD"].cut(cut), COL["LCD"], 1), (B["crystal"].cut(cut), COL["crystal"], 0.6)]
     shot(sect, os.path.join(out, "case_section.png"), (8, -120, 18), size=(1300, 650), zoom=1.5,
-         title="Section at 9-3 o'clock: cell holder, board, frame, LCD, crystal, lid")
+         title="Section at 9-3 o'clock: frame ears clamped under the bezel, glass clear")
+
+    shot([(B["pcb"], COL["pcb"], 1), (parts, COL["parts"], 1), (P["frame"], COL["frame"], 1),
+          (B["LCD"], COL["LCD"], 0.35)],
+         os.path.join(out, "case_frame.png"), (25, -60, 90), size=(1000, 900),
+         title="Frame on the board: tape under the panel, clamp ears at 3, 9 and 12")
 
 
 if __name__ == "__main__":

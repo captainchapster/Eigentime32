@@ -8,6 +8,7 @@ This is a hunter-style pocket watch case, 3D-printed and modelled around the rou
 |---|---|
 | ![Closed](renders/case_closed.png) | ![Back](renders/case_back.png) |
 | ![Exploded](renders/case_exploded.png) | ![Section](renders/case_section.png) |
+| ![Frame](renders/case_frame.png) | |
 
 ## Files
 
@@ -27,7 +28,7 @@ Rebuild: `pip install cadquery`, then `python3 case/eigentime32_case.py case/stl
 |---|---|
 | `shell` | Back and middle in one piece. It holds the hinge knuckles, the bow lug at 12, the cell slot at 12, and flexure tabs for the two side buttons. Print it floor-down |
 | `bezel` | Holds the crystal and locates the LCD panel in a pocket. It snaps into a groove in the shell bore. Print it top-down |
-| `frame` | 1.2 mm spacer under the panel edges, so the glass never rests on parts. It is open at 6 o'clock for the folded ribbon and jogs round C21 |
+| `frame` | 1.2 mm spacer under the panel edges, so the glass never rests on parts. It is open at 6 o'clock for the folded ribbon and jogs round C21. Ears at 3, 9 and 12 o'clock stand outside the panel and reach the bezel's underside, so the bezel clamps the frame and board down without touching the glass. Print it ears-up |
 | `lid` | Hinged at 9, with a snap catch and thumb tab at 3 and a magnet pocket on the underside. Print it top-down |
 | `cell_door` | Plugs the cell slot at 12, held by two click bumps. It has a nail slot |
 
@@ -39,6 +40,7 @@ These parts are designed for FDM with a 0.4 mm nozzle (walls ≥ 0.8 mm, flexure
 |---|---|---|
 | Watch crystal | Flat mineral glass, Ø26.0 × 1.0 mm | Press it into the bezel from the front, with a dot of UV glue or GS Hypo cement |
 | Magnet | N52 disc, Ø3 × 1 mm | Glue it in the lid pocket over U9. The CT8132 trips at 9 G typ (12 G max). This magnet gives about 90 G on axis at 5 mm |
+| Panel tape | 3M 467MP (200MP adhesive, 0.05 mm transfer tape), or tesa 4972 (0.05 mm) | Cut 1 mm strips and lay them on the frame's top face. They hold the panel's back to the frame. Thicker tape lifts the glass into the bezel: the pocket allows 0.05 mm |
 | Hinge pin | Ø1.0 mm steel, ~14 mm long | A cut paper clip works. It is a press fit in the shell knuckles and turns freely in the lid |
 | Bow | Jump ring or pocket-watch bow, ≤ 1.6 mm wire | Goes through the 1.8 mm hole in the lug at 12 |
 
@@ -47,16 +49,23 @@ These parts are designed for FDM with a 0.4 mm nozzle (walls ≥ 0.8 mm, flexure
 1. Program the board first. The Tag-Connect pads are on the back and are covered once the board is in the shell.
 2. Fit the LCD to the board as described in `docs/decisions.md`: the FPC goes into J2 flat with the lever closed, then the panel folds over.
 3. Drop the board into the shell, back side down. The cell holder rests on the floor. The ribs beside each button body set the rotation, so each button actuator sits behind its flexure tab.
-4. Lay the frame on the board front, then fold the panel down onto the frame.
-5. Press the bezel (with the crystal already fitted) into the shell until its rib clicks into the groove. The pocket in the bezel locates the panel.
+4. Put the tape strips on the frame's top face (not on the ears) and peel the liner. Lay the frame on the board front, ears out, so the ears sit against the bore at 3, 9 and 12. Fold the panel down onto the frame, line it up with the frame's outer edges and press around its edges only, never on the middle of the glass.
+5. Press the bezel (with the crystal already fitted) into the shell until its rib clicks into the groove. The pocket in the bezel locates the panel sideways, with 0.05 mm clearance over the glass. The bezel bears on the crush ribs on the frame's ears, which clamps frame, board and cell holder onto the floor.
 6. Slide the CR2032 in through the slot at 12, + side towards the back as the holder requires, then click the door in.
 7. Fit the lid with the pin, and glue the magnet into its pocket.
+
+## What holds the display
+
+The flex ribbon carries no load. The panel's back is taped to the frame. The frame's ears are clamped between the board and the bezel, and the board is clamped onto the floor through the cell holder. Sideways, the bezel pocket holds the panel to 0.1 mm and the ears hold the frame against the bore. The glass itself is never squeezed: the bezel clears it by 0.05 mm, as Sharp asks that no pressure goes onto the panel.
+
+To get the panel off for rework, pop the bezel, then peel the panel slowly from one corner; a drop of isopropyl alcohol softens the tape.
 
 To change the cell, pop the door with a fingernail. Push the cell's exposed edge out with a toothpick, then slide the new cell in.
 
 ## Check on the first print
 
 - **Button feel:** the nubs sit 0.1 mm off the actuators (`NUB_GAP`). If presses feel mushy or the buttons self-trigger, adjust it.
+- **Frame clamp:** the crush ribs on the frame ears stand 0.15 mm into the bezel's underside (`CRUSH`); the snap has 0.05 mm of play, so about 0.1 mm is left as preload. If the bezel won't click in, sand the ribs down. If the board still rattles, raise `CRUSH`. Holder height tolerance moves this, so check it on the first build.
 - **Bezel snap:** the rib interference is 0.15 mm (`RIB_INTERFERENCE`). Tune it for your printer.
 - **Lid sensor:** the CT8132's sensing axis isn't stated in the excerpts we have. If the lid doesn't register, move the magnet pocket a couple of mm towards the centre (`U9_XY`). That adds an in-plane field component at the sensor.
 - **LCD active area:** the position used (`ACTIVE_CY`, 1.85 mm above centre) is taken from the outline and margins. Check it against Sharp's drawing before printing the bezel.

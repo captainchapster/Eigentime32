@@ -18,13 +18,14 @@ PCB_R = 20.0          # board radius
 PCB_T = 0.8           # JLC04081H-3313
 HOLDER_H = 4.06       # Keystone 3034 above the board's back face
 FRAME_T = 1.2         # spacer under the panel edges (docs/decisions.md)
+TAPE_T = 0.05         # transfer tape bonding the panel's back to the frame (3M 467MP)
 PANEL_W, PANEL_H, PANEL_T = 26.6, 30.3, 0.75   # LS013B7DH03 outline
 ACTIVE = 23.04        # active area, square
 ACTIVE_CY = 1.85      # active-area centre above the board centre (Sharp drawing: 1.78 mm top margin)
 
 Z_BOARD_BACK = -PCB_T
 Z_FLOOR_TOP = Z_BOARD_BACK - HOLDER_H      # the holder rests on the floor
-Z_PANEL_BOT = FRAME_T
+Z_PANEL_BOT = FRAME_T + TAPE_T
 Z_PANEL_TOP = FRAME_T + PANEL_T
 
 # ---------------------------------------------------------------- case
@@ -97,6 +98,18 @@ LUG_HOLE_D = 1.8
 GROOVE_Z = (Z_TOP - 0.85, Z_TOP - 0.5)
 GROOVE_DEPTH = 0.2
 RIB_INTERFERENCE = 0.15
+
+# frame clamp: ears outside the panel at 3, 9 and 12 o'clock reach up to the
+# bezel's underside, so the bezel presses frame, board and cell holder onto the
+# floor and no load goes through the glass. Crush ribs on the ears set the preload.
+EARS = [  # (x0, x1, y0, y1), clipped to the bore
+    (PANEL_W / 2 + 0.3, R_IN, -1.2, 4.8),
+    (-R_IN, -PANEL_W / 2 - 0.3, -1.2, 4.8),
+    (-3.0, 3.0, PANEL_H / 2 + 0.3, R_IN),
+]
+EAR_LINK = 0.6        # ears join the frame under the panel edge by this much
+CRUSH = 0.15          # crush-rib height above the bezel underside (net ~0.1 after the snap's play)
+CRUSH_W = 0.6
 
 # lid catch at 3 o'clock
 CATCH_DEG = 10.0
@@ -233,9 +246,28 @@ def bezel():
     return b
 
 
-def frame():
+def frame(crush=True):
     w, h = PANEL_W / 2, PANEL_H / 2
     f = box(-w, w, -h, h, 0, FRAME_T).intersect(disc(R_IN - 0.1, -1, FRAME_T + 1))
+    bore = disc(R_IN - 0.1, -1, Z_BEZEL_BOT + 1)
+    for x0, x1, y0, y1 in EARS:
+        f = f.union(box(x0, x1, y0, y1, 0, Z_BEZEL_BOT).intersect(bore))
+        # link the ear to the frame under the panel edge, below the panel
+        if y0 > 0:
+            f = f.union(box(x0, x1, h - EAR_LINK, y0, 0, FRAME_T))
+        else:
+            lx = (w - EAR_LINK, x0) if x0 > 0 else (x1, -w + EAR_LINK)
+            f = f.union(box(lx[0], lx[1], y0, y1, 0, FRAME_T))
+        if crush:  # two ribs across each ear
+            if y0 > 0:
+                for t in (x0 + 1.2, x1 - 1.2):
+                    f = f.union(box(t - CRUSH_W / 2, t + CRUSH_W / 2, y0 + 0.5, y1 - 0.8,
+                                    Z_BEZEL_BOT, Z_BEZEL_BOT + CRUSH))
+            else:
+                for t in (y0 + 1.2, y1 - 1.2):
+                    xa, xb = (x0 + 0.5, x1 - 0.9) if x0 > 0 else (x0 + 0.9, x1 - 0.5)
+                    f = f.union(box(xa, xb, t - CRUSH_W / 2, t + CRUSH_W / 2,
+                                    Z_BEZEL_BOT, Z_BEZEL_BOT + CRUSH))
     f = f.cut(box(-w + 1.0, w - 1.0, -h + 1.0, h - 1.0, -1, FRAME_T + 1))
     f = f.union(box(11.2, 12.4, -4.4, -0.8, 0, FRAME_T))           # jog round C21 keeps it one piece
     f = f.cut(box(12.0, w + 1, -3.6, -1.6, -1, FRAME_T + 1))       # C21

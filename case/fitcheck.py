@@ -114,7 +114,11 @@ def main():
     names = list(parts)
     for i, a in enumerate(names):
         for b in names[i + 1:]:
-            v = vol(parts[a].intersect(parts[b]))
+            pa, pb = parts[a], parts[b]
+            if {a, b} == {"frame", "bezel"}:  # the frame's crush ribs are meant to bite
+                pa, pb = (C.frame(crush=False) if a == "frame" else pa,
+                          C.frame(crush=False) if b == "frame" else pb)
+            v = vol(pa.intersect(pb))
             if v > 1e-3:
                 bad += 1
                 print(f"OVERLAP {a} x {b}: {v:.3f} mm^3")
@@ -127,6 +131,7 @@ def main():
     # actuator gaps
     for name in C.BUTTONS:
         print(f"{name}: angle {C.button_angle(name):.1f} deg, nub gap {C.NUB_GAP} mm")
+    print(f"frame clamp: crush ribs {C.CRUSH} mm into the bezel underside")
     print("fit check:", "PASS" if bad == 0 else f"{bad} overlaps")
     return bad
 
