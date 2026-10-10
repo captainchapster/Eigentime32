@@ -18,6 +18,8 @@
 | 2026-10-10 | Case orientation (front view): buttons at ~10 and ~2 o'clock, hinge at 9, lid magnet / sensor at ~4, LCD FPC at 6, CR2032 slides in from 12 | Lid sensor roughly opposite the hinge; FPC folds round the 6 o'clock edge |
 | 2026-10-10 | Keep a 21 mm wide no-parts channel from the holder to the 12 o'clock edge (rule area on the back) | The Keystone 3034 is a tunnel retainer with ~0.5 mm headroom over the cell, so the CR2032 slides in flat and its trailing edge starts beyond the board edge: the case needs a slot at 12 o'clock, or the board comes out for a swap |
 | 2026-10-10 | NFC coil: 8-turn F.Cu spiral, 38.1 mm OD, 0.15/0.15 mm, terminals at 4-5 o'clock | 0.9 mm under the planned 39 mm so the outer terminal via fits inside the 0.3 mm edge clearance; ~5.1 uH free air |
+| 2026-10-10 | CR2032 negative-contact pad reduced from the KiCad footprint's 17.8 mm to 5 mm (project footprint) | Keystone p.11 asks for 0.156 in (3.96 mm) square minimum; frees the area under the cell for mask-covered tracks |
+| 2026-10-10 | Board rules: 0.127 mm clearance, 0.2 mm signal / 0.25 mm power tracks, 0.5/0.3 mm vias, 0.2 mm hole-to-copper, 0.3 mm copper-to-edge | Standard 2-layer fab limits; check against the chosen fab before ordering |
 | 2026-10-10 | No copper pour anywhere on the board | The coil encloses the whole board; a ground pour inside the loop would kill the NFC coupling |
 | 2026-10-10 | LCD inputs go through VLCD-powered buffers | LCD VIH is VDD − 0.1 V; the MCU on VBAT (down to ~2.2 V) can't meet it at VLCD 3.0 V |
 | 2026-10-10 | SWD on Tag-Connect TC2030-NL pads | No connector height; smallest footprint |
