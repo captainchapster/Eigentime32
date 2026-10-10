@@ -1,12 +1,12 @@
 Ref,Function,Part,Package,Notes
 U1,RTC,Micro Crystal RV-3032-C7 32.768kHz 2.5ppm-TA-QC,C7 SON-8 3.2x1.5 mm,TCXO; CLKOUT 1 Hz to LCD EXTCOMIN; backup switchover off (VBACKUP via R9 to VSS)
-U2,MCU,STM32L031G6U6,UFQFPN28 4x4 mm,proposed
+U2,MCU,ST STM32L031G6U6,UFQFPN28 4x4 mm,standard pinout (not GxUxS); pin map in docs/power-pins-accuracy.md
 U3,LCD boost,TI TPS61099DRVR (adjustable),WSON-6 2x2 mm,VOUT 3.0 V via R1/R2; EN = BST_EN (R5/C8 delay from LCD_PWR_EN)
 U4,NFC tag,ST ST25DV04K,TBD,VCC from MCU GPIO
 U5,LCD supply switch,TI TPS22916CYFPR,DSBGA-4 (YFP) 0.78x0.78 mm 0.4 mm pitch,ON = LCD_PWR_EN; isolates boost + C2 from the cell when the lid is shut
 DS1,Display,Sharp LS013B7DH03,26.6x30.3x0.746 mm module,FPC connector TBD
-SW1,Lid sensor,Reed switch (normally closed),TBD,1 MOhm external pull-up
-SW2-SW3,Time set,Tactile switch,TBD,
+SW1,Lid sensor,Reed switch (normally closed),TBD,R11 1M pull-up; LID_N on PA2
+SW2-SW3,Time set,Tactile switch,TBD,R12/R13 1M pull-ups; BTN1_N PA3, BTN2_N PB1
 BT1,Cell,CR2032 in Keystone 3034 SMT retainer,4.06 mm above board,
 C2,Boost input bulk (switched),Samsung CL31A107MQHNNNE 100 uF 6.3 V X5R,1206,
 C3,VBAT decoupling (always on),Murata GRM155R71C104KA88D 100 nF 16 V X7R,0402,
@@ -15,6 +15,10 @@ C5-C6,Boost COUT,Murata GRM188R60J106ME84D 10 uF 6.3 V X5R,0603,20 uF nominal mi
 C7,VBAT decoupling / U5 CIN (always on),Murata GRM155R61A105KE15D 1 uF 10 V X5R,0402,
 C8,Boost EN delay,Murata GRM155R61A474KE15D 470 nF 10 V X5R,0402,with R5: tau 0.47 s
 C9,RTC VDD decoupling,Murata GRM155R71C104KA88D 100 nF 16 V X7R,0402,
+C10-C12,MCU VDD/VDDA decoupling,Murata GRM155R71C104KA88D 100 nF 16 V X7R,0402,
+C13,MCU VDDA,Murata GRM155R61A105KE15D 1 uF 10 V X5R,0402,
+C14,MCU VDD bulk (DNP),Murata GRM188R60J106ME84D 10 uF 6.3 V X5R,0603,not fitted: IR leakage on always-on VBAT
+C15,NRST filter,Murata GRM155R71C104KA88D 100 nF 16 V X7R,0402,
 L1,Boost inductor,Wurth 74404024010 1.0 uH WE-LQS,2520 (2.5x2.0x1.2 mm),Isat 2.5 A; 36 mOhm
 R1,Boost FB top,Yageo RC0402FR-07402KL 402k 1%,0402,
 R2,Boost FB bottom,Yageo RC0402FR-07200KL 200k 1%,0402,
@@ -24,6 +28,8 @@ R5,Boost EN delay,Yageo RC0402FR-071ML 1M 1%,0402,LCD_PWR_EN to BST_EN
 R6-R7,I2C pull-ups (SDA/SCL),Yageo RC0402FR-0710KL 10k 1%,0402,to VBAT; draw only while a line is low
 R8,RTC INT pull-up,Yageo RC0402FR-07470KL 470k 1%,0402,to VBAT
 R9,RTC VBACKUP tie-down,Yageo RC0402FR-0710KL 10k 1%,0402,required when switchover is unused
+R10,BOOT0 pull-down,Yageo RC0402FR-0710KL 10k 1%,0402,
+R11-R13,Reed/button pull-ups,Yageo RC0402FR-071ML 1M 1%,0402,to VBAT
 Q1,Reverse protection,Diodes DMG2305UX-7 P-FET,SOT-23,gate to GND; Vgs(th) -0.9 V max
-J1,Programming,Tag-Connect pads,TC2030,
+J1,Programming,Tag-Connect TC2030-IDC-NL pads,TC2030 no-legs,SWDIO/SWCLK/NRST/VBAT/GND
 TP1,RTC CLKOUT test pad,Test pad,1.0 mm pad,1 Hz accuracy measurement
