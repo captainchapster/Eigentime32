@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Eigentime32 Sync</title>
+<style>
+  :root { --bg:#f4f2ee; --card:#fff; --ink:#1d1f22; --mute:#6b6f75; --accent:#2f6b45; --line:#e2ded6; }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg:#141517; --card:#1e2023; --ink:#eceae6; --mute:#9a9ea4; --accent:#6fbf8e; --line:#2c2f33; }
+  }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink); font:16px/1.45 system-ui, -apple-system, Segoe UI, Roboto, sans-serif; }
+  main { max-width:480px; margin:0 auto; padding:20px 16px 40px; }
+  h1 { font-size:22px; margin:4px 0 16px; }
+  .card { background:var(--card); border:1px solid var(--line); border-radius:14px; padding:16px; margin-bottom:14px; }
+  .clock { font:600 56px/1 ui-monospace, SFMono-Regular, Menlo, monospace; letter-spacing:1px; text-align:center; margin:6px 0; }
+  .sub { color:var(--mute); font-size:14px; text-align:center; }
+  dl { display:grid; grid-template-columns:auto 1fr; gap:6px 14px; margin:0; }
+  dt { color:var(--mute); } dd { margin:0; text-align:right; font-variant-numeric:tabular-nums; }
+  button { width:100%; font:600 17px system-ui, sans-serif; padding:14px; border-radius:12px; border:0; background:var(--accent); color:#fff; }
+  button:disabled { opacity:.5; }
+  #msg { min-height:1.4em; margin-top:10px; text-align:center; }
+  ol { padding-left:20px; margin:8px 0 0; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Eigentime32</h1>
+
+  <div class="card">
+    <div class="clock" id="clock">--:--:--</div>
+    <div class="sub">This phone's clock (network time)</div>
+  </div>
+
+  <div class="card" id="status" hidden>
+    <dl id="facts"></dl>
+  </div>
+
+  <div class="card" id="nfc" hidden>
+    <button id="sync">Sync the watch</button>
+    <div id="msg"></div>
+    <div class="sub">Tap Sync, then hold the phone to the front of the watch until this page says Synced.</div>
+  </div>
+
+  <div class="card">
+    <strong>Sync with the buttons (any phone)</strong>
+    <ol>
+      <li>Open the lid and hold the 2 o'clock button until the face shows <em>PRESS AT :00</em>.</li>
+      <li>Watch the clock above and press the 2 o'clock button when the seconds reach <strong>:00</strong>.</li>
+    </ol>
+    <div class="sub" style="margin-top:8px">The watch snaps to the nearest minute and, after a week or more since the last sync, trims its own rate.</div>
+  </div>
+</main>
+<script>
+  const pad = n => String(n).padStart(2, "0");
+  const clock = document.getElementById("clock");
+  (function tick() {
+    const d = new Date();
+    clock.textContent = `${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}`;
+    setTimeout(tick, 1000 - (Date.now() % 1000) + 5);
+  })();
+
+  // Status the watch wrote into its tag link
+  const q = new URLSearchParams(location.search);
+  if (q.has("v")) {
+    const rows = [];
+    const t = +q.get("t"), s = +q.get("s"), b = +q.get("b"), d = +q.get("d"), o = +q.get("o");
+    if (t) rows.push(["Watch time when written", new Date(t * 1000).toLocaleString()]);
+    rows.push(["Last reference sync", s ? new Date(s * 1000).toLocaleDateString() : "never"]);
+    if (s && t) rows.push(["Since then", `${Math.round((t - s) / 86400)} days`]);
+    rows.push(["Measured rate", `${d >= 0 ? "+" : ""}${(d / 1000).toFixed(3)} ppm`]);
+    rows.push(["RTC trim", `${o} steps (${(o * 0.2384).toFixed(2)} ppm)`]);
+    if (b) rows.push(["Battery", `${(b / 1000).toFixed(2)} V`]);
+    const dl = document.getElementById("facts");
+    for (const [k, v] of rows) {
+      const a = document.createElement("dt"); a.textContent = k;
+      const c = document.createElement("dd"); c.textContent = v;
+      dl.append(a, c);
+    }
+    document.getElementById("status").hidden = false;
+  }
+
+  // One-tap sync where Web NFC exists (Chrome on Android)
+  if ("NDEFReader" in window) {
+    document.getElementById("nfc").hidden = false;
+    const btn = document.getElementById("sync"), msg = document.getElementById("msg");
+    btn.onclick = async () => {
+      btn.disabled = true;
+      msg.textContent = "Hold the phone to the watch…";
+      const ctrl = new AbortController();
+      try {
+        const nfc = new NDEFReader();
+        await nfc.scan({ signal: ctrl.signal });
+        nfc.onreading = async () => {
+          // stamp the time at the moment of writing, while the tag is in the field
+          const text = `ET32 T=${Date.now()} Z=${-new Date().getTimezoneOffset()}`;
+          try {
+            await nfc.write({ records: [{ recordType: "text", data: text }] }, { overwrite: true });
+            msg.textContent = "Synced. The watch shows the correction next time you open it.";
+          } catch (e) {
+            msg.textContent = "Write failed: " + e.message;
+          }
+          ctrl.abort();
+          btn.disabled = false;
+        };
+      } catch (e) {
+        msg.textContent = "NFC unavailable: " + e.message;
+        btn.disabled = false;
+      }
+    };
+  }
+</script>
+</body>
+</html>
