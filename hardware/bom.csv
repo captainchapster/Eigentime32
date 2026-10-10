@@ -4,7 +4,7 @@ U2,MCU,ST STM32L031G6U6,UFQFPN28 4x4 mm,standard pinout (not GxUxS); pin map in 
 U3,LCD boost,TI TPS61099DRVR (adjustable),WSON-6 2x2 mm,VOUT 3.0 V via R1/R2; EN = BST_EN (R5/C8 delay from LCD_PWR_EN)
 U4,NFC tag,ST ST25DV04K,TBD,VCC from MCU GPIO
 U5,LCD supply switch,TI TPS22916CYFPR,DSBGA-4 (YFP) 0.78x0.78 mm 0.4 mm pitch,ON = LCD_PWR_EN; isolates boost + C2 from the cell when the lid is shut
-U6,LCD SCLK/SI/SCS/DISP buffer,TI SN74LV4T125PWR,TSSOP-14,VCC = VLCD; VIH 1.35 V max; Ioff; OE tied low
+U6,LCD SCLK/SI/SCS/DISP buffer,TI SN74LV4T125RGYR,VQFN-14 (RGY) 3.5x3.5 mm,VCC = VLCD; VIH 1.35 V max; Ioff; OE tied low; EP to GND
 U7,LCD EXTCOMIN buffer,TI SN74LV1T34DCKR,SC70-5,VCC = VLCD; input from RTC CLKOUT
 DS1,Display,Sharp LS013B7DH03,26.6x30.3x0.746 mm module,plugs into J2; not a PCB part
 SW1,Lid sensor,Reed switch (normally closed),TBD,R11 1M pull-up; LID_N on PA2
