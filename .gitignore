@@ -12,3 +12,5 @@ build/
 *.bin
 *.hex
 .DS_Store
+__pycache__/
+case/out/
