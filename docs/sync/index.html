@@ -164,9 +164,12 @@
   let lastSec = -1;
   (function tick() {
     const d = new Date(), s = d.getSeconds();
-    $("clock").innerHTML = `${pad(d.getHours())}:${pad(d.getMinutes())}:<span class="s">${pad(s)}</span>`;
-    if (s === 0 && lastSec !== 0) { $("clock").classList.remove("flash"); void $("clock").offsetWidth; $("clock").classList.add("flash"); }
-    lastSec = s;
+    if (s !== lastSec) {
+      // redraw once a second; redrawing every tick would restart the :00 flash before it finishes
+      $("clock").innerHTML = `${pad(d.getHours())}:${pad(d.getMinutes())}:<span class="s">${pad(s)}</span>`;
+      $("clock").classList.toggle("flash", s === 0);
+      lastSec = s;
+    }
     $("date").textContent = d.toLocaleDateString(undefined, { weekday: "long", day: "numeric", month: "long", year: "numeric" }) + " · " + tzLabel();
     $("to-zero").textContent = s === 0 ? "Press now" : `:00 in ${60 - s} s`;
     requestAnimationFrame(() => { $("bar").style.width = ((s * 1000 + d.getMilliseconds()) / 600) + "%"; });
