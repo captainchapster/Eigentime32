@@ -13,7 +13,7 @@ A self-contained digital pocket watch that keeps its own time for a decade. No G
 | Wake | Normally-closed reed switch + magnet in the lid |
 | Power | CR2032, ~1 µA average, ~10-year target |
 | Recalibration | ST25DV04K NFC tag: set time and trim drift from a phone, about once a year |
-| Size | ~44 mm round × ~8 mm thick (3D-printed case, designed around the PCB) |
+| Size | 43.9 mm round × 10.8 mm thick with the lid shut (3D-printed hunter case, see `case/`) |
 
 ## Accuracy
 Aging of the crystal, not temperature, dominates over ten years. With one calibration at build time and a yearly NFC recalibration the target is roughly ±30 s/yr. See [docs/power-pins-accuracy.md](docs/power-pins-accuracy.md).
@@ -22,7 +22,7 @@ Aging of the crystal, not temperature, dominates over ten years. With one calibr
 - `docs/` design notes and decisions
 - `hardware/` KiCad project, BOM
 - `firmware/` MCU firmware
-- `case/` 3D-printed enclosure (after the PCB outline is fixed)
+- `case/` 3D-printed case: parametric CadQuery model, fit check, printable STL/STEP
 
 ## Status
 Architecture defined, schematic not started. See [docs/decisions.md](docs/decisions.md).
