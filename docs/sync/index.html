@@ -83,7 +83,7 @@
 
   <!-- the reference: this phone's network time -->
   <section class="card">
-    <div class="clock" id="clock">--:--:<span class="s">--</span></div>
+    <div class="clock" id="clock"><span id="hm">--:--:</span><span class="s" id="sec">--</span></div>
     <div class="date" id="date">&nbsp;</div>
     <div class="minute"><div id="bar"></div></div>
     <div class="minute-label"><span>This phone's network time</span><span id="to-zero"></span></div>
@@ -162,9 +162,12 @@
     return "UTC" + (m >= 0 ? "+" : "−") + Math.floor(Math.abs(m) / 60) + (Math.abs(m) % 60 ? ":" + pad(Math.abs(m) % 60) : "");
   };
   let lastSec = -1;
+  $("clock").addEventListener("animationend", () => $("clock").classList.remove("flash"));
   (function tick() {
     const d = new Date(), s = d.getSeconds();
-    $("clock").innerHTML = `${pad(d.getHours())}:${pad(d.getMinutes())}:<span class="s">${pad(s)}</span>`;
+    // update the text only: rebuilding the seconds span every tick would restart the flash and leave it black
+    $("hm").textContent = `${pad(d.getHours())}:${pad(d.getMinutes())}:`;
+    $("sec").textContent = pad(s);
     if (s === 0 && lastSec !== 0) { $("clock").classList.remove("flash"); void $("clock").offsetWidth; $("clock").classList.add("flash"); }
     lastSec = s;
     $("date").textContent = d.toLocaleDateString(undefined, { weekday: "long", day: "numeric", month: "long", year: "numeric" }) + " · " + tzLabel();
