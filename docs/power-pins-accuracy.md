@@ -1,7 +1,7 @@
 # Decade Time Piece: Power, Pins and Accuracy Plan (draft 2)
 
 Builds on [original-design-notes.md](original-design-notes.md). Decided 2026-10-10: **3D-printed case, designed around the PCB.**
-Draft 2 (2026-10-10) brings this in line with the Power, RTC and MCU schematic sheets. Items marked **(verify)** still need a datasheet check; items marked **(pending Alex)** are waiting on a decision.
+Draft 2 (2026-10-10) brings this in line with the Power, RTC and MCU schematic sheets. Items marked **(verify)** still need a datasheet check.
 
 ## 1. Board outline and size (compactness is the priority)
 Confirmed by Alex 2026-10-10: round board, TPS61099 boost, keep NFC. **Size is the top priority.**
@@ -56,7 +56,7 @@ CR2032 (BT1) ─ Q1 DMG2305UX P-FET reverse protection ─ VBAT (always on, 2.0�
 - Factory default CLKOUT is 32.768 kHz (~1 µA into 10 pF); firmware must set FD = 1 Hz (EEPROM C3h) or NCLKE = 1 (EEPROM C0h) once.
 - The RV-3032 periodic interrupt wakes the MCU once a minute (or once a second if a seconds field is shown) to redraw. **A minutes-only display is the cheap default.**
 
-### Cell-swap backup: dropped (pending Alex)
+### Cell-swap backup: dropped (confirmed by Alex 2026-10-10)
 - VBACKUP is tied to VSS through 10k and switchover is off (BSM = 00, factory default).
 - A ceramic bridge would need 36 µF (270 nA, 25 °C) to 100 µF (750 nA, −40 to 85 °C) to hold 60 s from 1.75 V down to VLOW 1.3 V. But an MLCC's IR spec (50 MΩ·µF) is a 50 s self-discharge time constant at any size, so none can be guaranteed to bridge 60 s, and worst-case standby leakage would be 2–5.5 µA.
 - Without it, a cell swap (about once a decade) resets the time; NFC sets it again. The aging offset (EEPROM C1h) and the rest of the configuration EEPROM survive.

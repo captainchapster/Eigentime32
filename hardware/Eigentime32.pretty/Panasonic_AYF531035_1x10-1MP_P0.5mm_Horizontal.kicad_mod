@@ -1,0 +1,97 @@
+(footprint "Panasonic_AYF531035_1x10-1MP_P0.5mm_Horizontal"
+	(version 20241229)
+	(generator "pcbnew")
+	(generator_version "9.0")
+	(layer "F.Cu")
+	(descr "Panasonic Y5B AYF531035, 10 pin, 0.5 mm pitch, back lock, 1.0 mm high, top and bottom contact FPC connector. Land pattern from Panasonic AYF53 datasheet ACCTB1E 201709-T; body outline approximate, check against Panasonic CAD")
+	(tags "FPC 0.5mm Panasonic Y5B AYF53")
+	(property "Reference" "REF**"
+		(at 0 -1.6 0)
+		(layer "F.SilkS")
+		(effects
+			(font
+				(size 0.8 0.8)
+				(thickness 0.12)
+			)
+		)
+	)
+	(property "Value" "AYF531035"
+		(at 0 4.6 0)
+		(layer "F.Fab")
+		(effects
+			(font
+				(size 0.8 0.8)
+				(thickness 0.12)
+			)
+		)
+	)
+	(attr smd)
+	(fp_line
+		(start -3.5 0.3)
+		(end 3.5 0.3)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+	)
+	(fp_line
+		(start 3.5 0.3)
+		(end 3.5 3.9)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+	)
+	(fp_line
+		(start 3.5 3.9)
+		(end -3.5 3.9)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+	)
+	(fp_line
+		(start -3.5 3.9)
+		(end -3.5 0.3)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+	)
+	(fp_line
+		(start -3.0 -0.7)
+		(end -2.6 -0.7)
+		(stroke
+			(width 0.12)
+			(type solid)
+		)
+		(layer "F.SilkS")
+	)
+	(fp_rect
+		(start -3.95 -0.7)
+		(end 3.95 4.15)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(fill no)
+		(layer "F.CrtYd")
+	)
+	(pad "1" smd rect (at -2.25 0) (size 0.3 0.8) (layers "F.Cu" "F.Paste" "F.Mask"))
+	(pad "2" smd rect (at -1.75 0) (size 0.3 0.8) (layers "F.Cu" "F.Paste" "F.Mask"))
+	(pad "3" smd rect (at -1.25 0) (size 0.3 0.8) (layers "F.Cu" "F.Paste" "F.Mask"))
+	(pad "4" smd rect (at -0.75 0) (size 0.3 0.8) (layers "F.Cu" "F.Paste" "F.Mask"))
+	(pad "5" smd rect (at -0.25 0) (size 0.3 0.8) (layers "F.Cu" "F.Paste" "F.Mask"))
+	(pad "6" smd rect (at 0.25 0) (size 0.3 0.8) (layers "F.Cu" "F.Paste" "F.Mask"))
+	(pad "7" smd rect (at 0.75 0) (size 0.3 0.8) (layers "F.Cu" "F.Paste" "F.Mask"))
+	(pad "8" smd rect (at 1.25 0) (size 0.3 0.8) (layers "F.Cu" "F.Paste" "F.Mask"))
+	(pad "9" smd rect (at 1.75 0) (size 0.3 0.8) (layers "F.Cu" "F.Paste" "F.Mask"))
+	(pad "10" smd rect (at 2.25 0) (size 0.3 0.8) (layers "F.Cu" "F.Paste" "F.Mask"))
+	(pad "MP" smd rect (at -3.25 2.5) (size 0.4 0.8) (layers "F.Cu" "F.Paste" "F.Mask"))
+	(pad "MP" smd rect (at 3.25 2.5) (size 0.4 0.8) (layers "F.Cu" "F.Paste" "F.Mask"))
+	(embedded_fonts no)
+)

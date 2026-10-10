@@ -16,9 +16,7 @@
 | 2026-10-10 | External 1 MΩ pull-ups on the reed switch and both buttons; internal pull-ups off | Internal ~40 kΩ would draw ~75 µA while the lid is open or a button is held |
 | 2026-10-10 | LCD inputs go through VLCD-powered buffers | LCD VIH is VDD − 0.1 V; the MCU on VBAT (down to ~2.2 V) can't meet it at VLCD 3.0 V |
 | 2026-10-10 | SWD on Tag-Connect TC2030-NL pads | No connector height; smallest footprint |
-
-## Pending Alex
-- Drop the RTC cell-swap bridge (VBACKUP to VSS via 10k, switchover off). No MLCC can be guaranteed by its IR spec to bridge a 60 s swap, and worst-case leakage would be 2–5.5 µA. A swap then resets the time, which NFC restores; the aging offset survives in EEPROM. Drawn this way for now.
+| 2026-10-10 | Drop the RTC cell-swap bridge: VBACKUP to VSS via 10k, switchover off (confirmed by Alex 2026-10-10) | No MLCC can be guaranteed by its IR spec to bridge a 60 s swap, and worst-case leakage would be 2–5.5 µA; a swap resets the time, NFC restores it, and the aging offset survives in EEPROM |
 
 ## Proposed, not yet confirmed
 - RV-3032 CLKOUT at 1 Hz drives the LCD EXTCOMIN (through a buffer)
