@@ -1,0 +1,14 @@
+# KiCad
+*-backups/
+*.kicad_prl
+fp-info-cache
+*.lck
+\#auto_saved_files\#
+_autosave-*
+# Build
+build/
+*.o
+*.elf
+*.bin
+*.hex
+.DS_Store

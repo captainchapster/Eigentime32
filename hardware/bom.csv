@@ -1,0 +1,12 @@
+Ref,Function,Part,Package,Notes
+U1,RTC,Micro Crystal RV-3032-C7,C7 3.2x1.5 mm,TCXO; CLKOUT 1 Hz to LCD EXTCOMIN
+U2,MCU,STM32L031G6U6,UFQFPN28 4x4 mm,proposed
+U3,LCD boost,TI TPS61099 (adjustable),DSBGA-6 or WSON-6,set to 3.0 V; EN from MCU
+U4,NFC tag,ST ST25DV04K,TBD,VCC from MCU GPIO
+DS1,Display,Sharp LS013B7DH03,26.6x30.3x0.746 mm module,FPC connector TBD
+SW1,Lid sensor,Reed switch (normally closed),TBD,1 MOhm external pull-up
+SW2-SW3,Time set,Tactile switch,TBD,
+BT1,Cell,CR2032 + low-profile SMT holder,TBD,
+C1,RTC backup,47-100 uF X5R MLCC,TBD,on RV-3032 VBACKUP
+Q1,Reverse protection,P-FET,TBD,
+J1,Programming,Tag-Connect pads,TC2030,
