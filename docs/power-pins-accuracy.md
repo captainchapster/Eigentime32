@@ -8,7 +8,7 @@ Confirmed by Alex 2026-10-10: round board, TPS61099 boost, keep NFC. **Size is t
 
 **The display sets the diameter, not the board.** The LS013B7DH03 outline is **26.6 × 30.3 × 0.746 mm** (Mouser listing), and the 30.3 mm side includes the glass ledge where the FPC leaves. A rectangle that size needs a circle of at least **40.3 mm** (its diagonal), so:
 - Case inner diameter ~41 mm, outer ~**44 mm** with 1.5 mm printed walls. That is still small for a pocket watch (typical 45–50 mm).
-- Since the diameter is fixed anyway, the PCB uses it: **40 mm round, 0.8 mm thick**. The front is kept bare under the LCD (foam tape mount). All parts sit on the back in the ring around the cell, and the FPC folds round the edge to a back-side connector.
+- Since the diameter is fixed anyway, the PCB uses it: **40 mm round, 0.8 mm thick**. The front under the LCD carries only the FPC connector and LCD buffers (parts ≤ 1.1 mm high). Most parts sit on the back in the ring around the cell. The LCD's FPC folds 180° under the glass into a front-side connector, and the LCD buffers sit beside it, under the panel, which rests on a 1.2 mm frame (see decisions.md).
 - **The real compactness lever is thickness**, mostly set by the cell.
 
 | Layer | CR2032 build (mm) |
@@ -86,12 +86,12 @@ The UFQFPN28 package has 21 I/O, 19 once SWD is reserved (draft 1's "~25" was wr
 | 22 | PA14 | SWCLK | TC2030 |
 | 14 | PB0 | NFC_VCC | ST25DV04K supply |
 | 15 | PB1 | BTN2_N | EXTI1; 1M pull-up |
-| 25 | PB6 | SCL | I2C1_SCL, AF1 |
-| 26 | PB7 | SDA | I2C1_SDA, AF1 |
+| 19 | PA9 | SCL | I2C1_SCL (moved from PB6 for routing: faces the RTC/NFC side) |
+| 20 | PA10 | SDA | I2C1_SDA (moved from PB7) |
 | 4 | NRST | NRST | 100 nF, TC2030 |
 | 27 | BOOT0 | – | 10k to GND |
 
-**Spare:** PA9, PA10 (USART2 TX/RX, good for a debug UART), PA15, PB3, PC14, PC15.
+**Spare:** PB6, PB7 (USART2 TX/RX, good for a debug UART), PA15, PB3, PC14, PC15.
 - Battery voltage is measured on VREFINT internally, so no pin is needed.
 - Decoupling per ST: 100 nF on each VDD pin, 100 nF + 1 µF on VDDA. ST's 10 µF VDD bulk (C14) is fitted as **DNP**: its IR spec allows ~0.6 µA leakage on always-on VBAT. Fit it only if wake bursts sag VBAT too far.
 
