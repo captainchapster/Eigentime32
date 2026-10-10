@@ -5,110 +5,290 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Eigentime32 Sync</title>
 <style>
-  :root { --bg:#f4f2ee; --card:#fff; --ink:#1d1f22; --mute:#6b6f75; --accent:#2f6b45; --line:#e2ded6; }
+  :root { --bg:#f4f2ee; --card:#fff; --ink:#1d1f22; --mute:#6b6f75; --accent:#2f6b45; --accent-ink:#fff;
+          --line:#e2ded6; --soft:#eef4f0; --warn:#9a5b00; --warn-soft:#fbf1e1; --bad:#a3322a; --bad-soft:#f9e6e4; }
   @media (prefers-color-scheme: dark) {
-    :root { --bg:#141517; --card:#1e2023; --ink:#eceae6; --mute:#9a9ea4; --accent:#6fbf8e; --line:#2c2f33; }
+    :root { --bg:#141517; --card:#1e2023; --ink:#eceae6; --mute:#9a9ea4; --accent:#6fbf8e; --accent-ink:#0f1a13;
+            --line:#2c2f33; --soft:#1d2a22; --warn:#e0a85a; --warn-soft:#2c2416; --bad:#ec8a80; --bad-soft:#2e1c1a; }
   }
   * { box-sizing: border-box; }
-  body { margin:0; background:var(--bg); color:var(--ink); font:16px/1.45 system-ui, -apple-system, Segoe UI, Roboto, sans-serif; }
-  main { max-width:480px; margin:0 auto; padding:20px 16px 40px; }
-  h1 { font-size:22px; margin:4px 0 16px; }
+  body { margin:0; background:var(--bg); color:var(--ink); font:16px/1.5 system-ui, -apple-system, Segoe UI, Roboto, sans-serif; }
+  main { max-width:480px; margin:0 auto; padding:20px 16px 48px; }
+  .brand { color:var(--mute); font-size:13px; letter-spacing:.08em; text-transform:uppercase; margin:4px 0 2px; }
+  h1 { font-size:24px; line-height:1.2; margin:0 0 16px; }
+  h2 { font-size:18px; margin:0 0 4px; }
+  p { margin:6px 0; }
   .card { background:var(--card); border:1px solid var(--line); border-radius:14px; padding:16px; margin-bottom:14px; }
-  .clock { font:600 56px/1 ui-monospace, SFMono-Regular, Menlo, monospace; letter-spacing:1px; text-align:center; margin:6px 0; }
-  .sub { color:var(--mute); font-size:14px; text-align:center; }
+  .lead { color:var(--mute); font-size:15px; margin:0 0 12px; }
+  .small { color:var(--mute); font-size:14px; }
+
+  /* reference clock */
+  .clock { font:600 56px/1 ui-monospace, SFMono-Regular, Menlo, monospace; letter-spacing:1px; text-align:center; margin:4px 0 6px; font-variant-numeric:tabular-nums; }
+  .clock .s { color:var(--accent); }
+  .date { text-align:center; color:var(--mute); font-size:15px; }
+  .minute { height:6px; background:var(--line); border-radius:3px; margin:14px 0 6px; overflow:hidden; }
+  .minute > div { height:100%; width:0; background:var(--accent); border-radius:3px; }
+  .minute-label { display:flex; justify-content:space-between; font-size:13px; color:var(--mute); }
+  .clock.flash .s { animation:flash .6s; }
+  @keyframes flash { 0% { color:var(--ink); } 100% { color:var(--accent); } }
+
+  /* watch status */
+  .note { border-radius:10px; padding:10px 12px; margin:0 0 12px; font-size:15px; background:var(--soft); }
+  .note.warn { background:var(--warn-soft); color:var(--warn); }
+  .note.bad { background:var(--bad-soft); color:var(--bad); }
   dl { display:grid; grid-template-columns:auto 1fr; gap:6px 14px; margin:0; }
   dt { color:var(--mute); } dd { margin:0; text-align:right; font-variant-numeric:tabular-nums; }
-  button { width:100%; font:600 17px system-ui, sans-serif; padding:14px; border-radius:12px; border:0; background:var(--accent); color:#fff; }
+
+  /* steps */
+  ol.steps { list-style:none; padding:0; margin:12px 0; counter-reset:step; }
+  ol.steps li { counter-increment:step; position:relative; padding:4px 0 10px 40px; min-height:32px; }
+  ol.steps li::before { content:counter(step); position:absolute; left:0; top:2px; width:28px; height:28px; border-radius:50%;
+    display:grid; place-items:center; font-weight:600; font-size:14px; background:var(--line); color:var(--ink); }
+  ol.steps li.now::before { background:var(--accent); color:var(--accent-ink); }
+  ol.steps li.done::before { content:"✓"; background:var(--soft); color:var(--accent); }
+  ol.steps li.done { color:var(--mute); }
+  .face { font:600 14px ui-monospace, SFMono-Regular, Menlo, monospace; background:var(--line); border-radius:6px; padding:1px 6px; white-space:nowrap; }
+
+  button { font:600 17px system-ui, sans-serif; padding:14px; border-radius:12px; border:0; background:var(--accent); color:var(--accent-ink); width:100%; cursor:pointer; }
+  button.ghost { background:transparent; color:var(--mute); border:1px solid var(--line); font-weight:500; font-size:15px; padding:10px; margin-top:8px; }
   button:disabled { opacity:.5; }
-  #msg { min-height:1.4em; margin-top:10px; text-align:center; }
-  ol { padding-left:20px; margin:8px 0 0; }
+  .result { border-radius:10px; padding:12px; margin-top:12px; }
+  .result.ok { background:var(--soft); }
+  .result.err { background:var(--bad-soft); color:var(--bad); }
+  .result strong { display:block; margin-bottom:2px; }
+  .pulse { display:inline-block; width:10px; height:10px; border-radius:50%; background:var(--accent); margin-right:8px; animation:pulse 1.2s infinite; }
+  @keyframes pulse { 0%,100% { opacity:1; transform:scale(1); } 50% { opacity:.3; transform:scale(.7); } }
+
+  details { border-top:1px solid var(--line); padding:10px 0 2px; }
+  details:first-of-type { border-top:0; }
+  summary { cursor:pointer; font-weight:600; }
+  details > :not(summary) { font-size:15px; }
+  table { border-collapse:collapse; width:100%; font-size:15px; margin-top:6px; }
+  td { padding:5px 0; vertical-align:top; border-top:1px solid var(--line); }
+  td:first-child { padding-right:12px; white-space:nowrap; }
 </style>
 </head>
 <body>
 <main>
-  <h1>Eigentime32</h1>
+  <div class="brand">Eigentime32</div>
+  <h1 id="title">Set your watch</h1>
 
-  <div class="card">
-    <div class="clock" id="clock">--:--:--</div>
-    <div class="sub">This phone's clock (network time)</div>
-  </div>
-
-  <div class="card" id="status" hidden>
+  <!-- what the watch reported through its tag link -->
+  <section class="card" id="status" hidden>
+    <h2>Your watch</h2>
+    <p class="small" id="status-age"></p>
+    <div id="advice"></div>
     <dl id="facts"></dl>
-  </div>
+  </section>
 
-  <div class="card" id="nfc" hidden>
-    <button id="sync">Sync the watch</button>
-    <div id="msg"></div>
-    <div class="sub">Tap Sync, then hold the phone to the front of the watch until this page says Synced.</div>
-  </div>
+  <!-- the reference: this phone's network time -->
+  <section class="card">
+    <div class="clock" id="clock">--:--:<span class="s">--</span></div>
+    <div class="date" id="date">&nbsp;</div>
+    <div class="minute"><div id="bar"></div></div>
+    <div class="minute-label"><span>This phone's network time</span><span id="to-zero"></span></div>
+  </section>
 
-  <div class="card">
-    <strong>Sync with the buttons (any phone)</strong>
-    <ol>
-      <li>Open the lid and hold the 2 o'clock button until the face shows <em>PRESS AT :00</em>.</li>
-      <li>Watch the clock above and press the 2 o'clock button when the seconds reach <strong>:00</strong>.</li>
+  <!-- one-tap sync, Chrome on Android -->
+  <section class="card" id="nfc" hidden>
+    <h2>Sync with this phone</h2>
+    <p class="lead">One tap sets the full date, time and time zone, to within a few milliseconds.</p>
+    <ol class="steps" id="nfc-steps">
+      <li class="now">Open the watch lid so you can see the result.</li>
+      <li>Tap <strong>Start sync</strong>.</li>
+      <li>Hold the back of the phone flat on the watch face. The NFC spot is usually near the camera.</li>
+      <li>Keep still until the phone buzzes and this page says <strong>Synced</strong>.</li>
     </ol>
-    <div class="sub" style="margin-top:8px">The watch snaps to the nearest minute and, after a week or more since the last sync, trims its own rate.</div>
-  </div>
+    <button id="sync">Start sync</button>
+    <button class="ghost" id="cancel" hidden>Cancel</button>
+    <div id="nfc-result"></div>
+  </section>
+
+  <!-- no Web NFC: explain why, then the buttons -->
+  <section class="card" id="no-nfc" hidden>
+    <h2>Sync with the buttons</h2>
+    <p class="lead" id="no-nfc-why"></p>
+  </section>
+
+  <section class="card" id="buttons">
+    <h2 id="buttons-title">Fine-tune with the buttons</h2>
+    <p class="lead">Works with any phone or clock. It corrects the seconds, up to half a minute either way, and still teaches the watch its drift.</p>
+    <ol class="steps">
+      <li>Open the lid and hold the <strong>2 o'clock</strong> button for a second, until the face shows <span class="face">PRESS AT :00</span>.</li>
+      <li>Watch the bar above. When the seconds reach <strong>:00</strong>, press the 2 o'clock button once.</li>
+      <li>The face shows <span class="face">ADJ +1.2S</span>, which is how far off the watch was.</li>
+    </ol>
+    <p class="small">If the hour or date is wrong, or the face says <span class="face">NOT SET</span>, set it by hand first (below), then do this.</p>
+  </section>
+
+  <section class="card">
+    <details id="hand">
+      <summary>Set the time by hand</summary>
+      <ol class="steps">
+        <li>Hold the <strong>10 o'clock</strong> button for a second. The hour is highlighted.</li>
+        <li>Press <strong>2 o'clock</strong> to count up. Hold it to go faster.</li>
+        <li>Press <strong>10 o'clock</strong> to move on: hour, minute, day, month, year. After the year it saves and shows <span class="face">TIME SET</span>.</li>
+      </ol>
+      <p class="small">Hold 10 o'clock at any point to cancel. A hand-set time isn't precise enough to measure drift, so follow it with a sync.</p>
+    </details>
+    <details>
+      <summary>What the watch is telling you</summary>
+      <table>
+        <tr><td><span class="face">SYNC +0.4S</span></td><td>Phone sync done. The watch was 0.4 s fast before it.</td></tr>
+        <tr><td><span class="face">TIME SET</span></td><td>The first sync after a new cell, or a hand set, worked.</td></tr>
+        <tr><td><span class="face">ADJ -1.2S</span></td><td>Button sync done. The watch was 1.2 s slow.</td></tr>
+        <tr><td><span class="face">PRESS AT :00</span></td><td>Waiting for your press at the top of the minute.</td></tr>
+        <tr><td><span class="face">NOT SET</span></td><td>The time was lost, usually after a cell change. Sync or set it.</td></tr>
+        <tr><td><span class="face">CANCELLED</span></td><td>Setting or sync stopped. Nothing changed.</td></tr>
+        <tr><td><span class="face">+0.120 PPM</span></td><td>Short press on 10 o'clock: the measured rate.</td></tr>
+        <tr><td><span class="face">2980 MV</span></td><td>Short press on 2 o'clock: the cell voltage.</td></tr>
+      </table>
+    </details>
+    <details>
+      <summary>How syncing keeps it accurate</summary>
+      <p>A phone sync sends one number: the phone's network time in milliseconds since 1970, which pins down the date, time and seconds, plus your time zone. The watch sets its clock on the next whole second.</p>
+      <p>Before it does, it measures how far it had drifted since the last sync. If that was at least a week ago, it works out its rate error and trims its own crystal to cancel it. Each sync makes it better, so a sync every few months is plenty.</p>
+      <p>Tapping any phone on the watch, even an iPhone, opens this page with the watch's latest status.</p>
+    </details>
+  </section>
 </main>
 <script>
+  const $ = id => document.getElementById(id);
   const pad = n => String(n).padStart(2, "0");
-  const clock = document.getElementById("clock");
+
+  /* ---------- reference clock ---------- */
+  const tzLabel = () => {
+    const m = -new Date().getTimezoneOffset();
+    return "UTC" + (m >= 0 ? "+" : "−") + Math.floor(Math.abs(m) / 60) + (Math.abs(m) % 60 ? ":" + pad(Math.abs(m) % 60) : "");
+  };
+  let lastSec = -1;
   (function tick() {
-    const d = new Date();
-    clock.textContent = `${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}`;
-    setTimeout(tick, 1000 - (Date.now() % 1000) + 5);
+    const d = new Date(), s = d.getSeconds();
+    $("clock").innerHTML = `${pad(d.getHours())}:${pad(d.getMinutes())}:<span class="s">${pad(s)}</span>`;
+    if (s === 0 && lastSec !== 0) { $("clock").classList.remove("flash"); void $("clock").offsetWidth; $("clock").classList.add("flash"); }
+    lastSec = s;
+    $("date").textContent = d.toLocaleDateString(undefined, { weekday: "long", day: "numeric", month: "long", year: "numeric" }) + " · " + tzLabel();
+    $("to-zero").textContent = s === 0 ? "Press now" : `:00 in ${60 - s} s`;
+    requestAnimationFrame(() => { $("bar").style.width = ((s * 1000 + d.getMilliseconds()) / 600) + "%"; });
+    setTimeout(tick, 250 - (Date.now() % 250) + 5);
   })();
 
-  // Status the watch wrote into its tag link
+  /* ---------- status the watch wrote into its tag link ---------- */
   const q = new URLSearchParams(location.search);
   if (q.has("v")) {
-    const rows = [];
+    const now = Date.now() / 1000;
     const t = +q.get("t"), s = +q.get("s"), b = +q.get("b"), d = +q.get("d"), o = +q.get("o");
-    if (t) rows.push(["Watch time when written", new Date(t * 1000).toLocaleString()]);
-    rows.push(["Last reference sync", s ? new Date(s * 1000).toLocaleDateString() : "never"]);
-    if (s && t) rows.push(["Since then", `${Math.round((t - s) / 86400)} days`]);
-    rows.push(["Measured rate", `${d >= 0 ? "+" : ""}${(d / 1000).toFixed(3)} ppm`]);
-    rows.push(["RTC trim", `${o} steps (${(o * 0.2384).toFixed(2)} ppm)`]);
-    if (b) rows.push(["Battery", `${(b / 1000).toFixed(2)} V`]);
-    const dl = document.getElementById("facts");
+    const days = x => Math.max(0, Math.round((now - x) / 86400));
+    const ago = x => { const n = days(x); return n === 0 ? "today" : n === 1 ? "yesterday" : `${n} days ago`; };
+    const advice = [];
+    if (!t) advice.push(["bad", "NDEFReader" in window
+      ? "The watch's time isn't set. Sync it now."
+      : "The watch's time isn't set. Set it by hand below, then fine-tune it with the buttons."]);
+    if (!t && !("NDEFReader" in window)) $("hand").open = true;
+    else if (!s) advice.push(["", "The watch hasn't been synced against a clock yet. Sync it now, then again in a few weeks, and it will learn its own drift."]);
+    else if (days(s) > 180) advice.push(["warn", `Last synced ${ago(s)}. It's a good time to sync.`]);
+    else advice.push(["", `Synced ${ago(s)}. Syncing again any time after a week sharpens its rate.`]);
+    if (b && b < 2600) advice.push(["bad", "The cell is nearly flat. Replace the CR2032 soon."]);
+    else if (b && b < 2750) advice.push(["warn", "The cell is getting low."]);
+    for (const [cls, text] of advice) {
+      const p = document.createElement("p"); p.className = "note " + cls; p.textContent = text; $("advice").append(p);
+    }
+    const rows = [];
+    if (s) rows.push(["Last sync", new Date(s * 1000).toLocaleDateString()]);
+    if (d) rows.push(["Measured rate", `${d >= 0 ? "+" : "−"}${(Math.abs(d) / 1000).toFixed(3)} ppm · ${(Math.abs(d) * 31.5576e-3).toFixed(1)} s/yr`]);
+    if (o) rows.push(["Rate trim", `${o > 0 ? "+" : "−"}${Math.abs(o)} steps · ${(Math.abs(o) * 0.2384).toFixed(2)} ppm`]);
+    if (b) {
+      const pts = [[3000,100],[2900,80],[2800,50],[2700,30],[2600,15],[2400,5],[2200,0]];
+      let pct = 0;
+      if (b >= 3000) pct = 100;
+      else for (let i = 1; i < pts.length; i++) if (b >= pts[i][0]) {
+        pct = Math.round(pts[i][1] + (b - pts[i][0]) * (pts[i-1][1] - pts[i][1]) / (pts[i-1][0] - pts[i][0])); break;
+      }
+      rows.push(["Battery", `${pct}% (${(b / 1000).toFixed(2)} V)`]);
+    }
     for (const [k, v] of rows) {
       const a = document.createElement("dt"); a.textContent = k;
       const c = document.createElement("dd"); c.textContent = v;
-      dl.append(a, c);
+      $("facts").append(a, c);
     }
-    document.getElementById("status").hidden = false;
+    $("status-age").textContent = t
+      ? `As the watch last reported it, ${ago(t) === "today" ? "earlier today" : ago(t)}. The watch refreshes this when you close the lid.`
+      : "As the watch last reported it.";
+    $("status").hidden = false;
+    $("title").textContent = t ? "Check and sync your watch" : "Set your watch";
   }
 
-  // One-tap sync where Web NFC exists (Chrome on Android)
+  /* ---------- one-tap sync where Web NFC exists (Chrome on Android) ---------- */
+  const steps = [...$("nfc-steps").children];
+  const at = n => steps.forEach((li, i) => { li.className = i < n ? "done" : i === n ? "now" : ""; });
+  const result = (ok, head, body) => {
+    $("nfc-result").innerHTML = "";
+    const div = document.createElement("div"); div.className = "result " + (ok ? "ok" : "err");
+    const h = document.createElement("strong"); h.textContent = head;
+    const p = document.createElement("div"); p.textContent = body;
+    div.append(h, p); $("nfc-result").append(div);
+  };
+  const explain = e => {
+    if (e.name === "NotAllowedError") return ["NFC permission was refused", "Allow NFC for this site in Chrome (the lock icon by the address), then try again."];
+    if (e.name === "NotReadableError" || e.name === "NotSupportedError") return ["NFC is switched off", "Turn on NFC in Android's settings (Connected devices), then try again."];
+    if (e.name === "NetworkError") return ["The watch moved away too soon", "Hold the phone still on the watch face until it buzzes, then try again."];
+    return ["Sync didn't finish", e.message || String(e)];
+  };
+
   if ("NDEFReader" in window) {
-    document.getElementById("nfc").hidden = false;
-    const btn = document.getElementById("sync"), msg = document.getElementById("msg");
-    btn.onclick = async () => {
-      btn.disabled = true;
-      msg.textContent = "Hold the phone to the watch…";
-      const ctrl = new AbortController();
+    $("nfc").hidden = false;
+    let ctrl = null, timer = 0;
+    const reset = () => {
+      if (ctrl) ctrl.abort();
+      ctrl = null; clearTimeout(timer);
+      $("sync").disabled = false; $("sync").textContent = "Sync again"; $("cancel").hidden = true;
+    };
+    $("cancel").onclick = () => { reset(); at(0); $("sync").textContent = "Start sync"; $("nfc-result").innerHTML = ""; };
+    $("sync").onclick = async () => {
+      $("sync").disabled = true; $("cancel").hidden = false;
+      $("sync").innerHTML = '<span class="pulse"></span>Hold the phone on the watch';
+      $("nfc-result").innerHTML = ""; at(2);
+      ctrl = new AbortController();
+      timer = setTimeout(() => { reset(); at(2); result(false, "No watch found", "Nothing answered for 30 seconds. Move the phone slowly over the watch face to find the spot, then try again."); }, 30000);
       try {
         const nfc = new NDEFReader();
         await nfc.scan({ signal: ctrl.signal });
         nfc.onreading = async () => {
+          if (!ctrl) return;
+          at(3);
           // stamp the time at the moment of writing, while the tag is in the field
-          const text = `ET32 T=${Date.now()} Z=${-new Date().getTimezoneOffset()}`;
+          const ms = Date.now(), z = -new Date().getTimezoneOffset();
           try {
-            await nfc.write({ records: [{ recordType: "text", data: text }] }, { overwrite: true });
-            msg.textContent = "Synced. The watch shows the correction next time you open it.";
+            await nfc.write({ records: [{ recordType: "text", data: `ET32 T=${ms} Z=${z}` }] }, { overwrite: true });
+            if (navigator.vibrate) navigator.vibrate(120);
+            reset(); at(4);
+            const sent = new Date(ms);
+            result(true, "Synced",
+              `Sent ${sent.toLocaleDateString(undefined, { day: "numeric", month: "short", year: "numeric" })}, ` +
+              `${pad(sent.getHours())}:${pad(sent.getMinutes())}:${pad(sent.getSeconds())}.${String(sent.getMilliseconds()).padStart(3, "0")} ${tzLabel()}. ` +
+              "The watch now shows SYNC with how far off it was, or TIME SET if it had no time. With the lid shut, you'll see it next time you open it.");
           } catch (e) {
-            msg.textContent = "Write failed: " + e.message;
+            reset(); at(2);
+            result(false, ...explain(e));
           }
-          ctrl.abort();
-          btn.disabled = false;
         };
       } catch (e) {
-        msg.textContent = "NFC unavailable: " + e.message;
-        btn.disabled = false;
+        reset(); at(1); $("sync").textContent = "Start sync";
+        result(false, ...explain(e));
       }
     };
+  } else {
+    // iPhones and desktop browsers can't write NFC tags from a web page
+    const ios = /iPhone|iPad|iPod/.test(navigator.userAgent);
+    $("no-nfc-why").textContent = (ios
+      ? "iPhones can read the watch, which is how you got here, but Safari can't write to it. "
+      : "This browser can't write to NFC tags. One-tap sync needs Chrome on an Android phone. ")
+      + "Use the buttons instead. This page's clock is your reference.";
+    $("no-nfc").hidden = false;
+    $("buttons").before($("no-nfc"));
+    $("no-nfc").append(...$("buttons").childNodes);
+    $("buttons").remove();
+    $("no-nfc").querySelector("#buttons-title").remove();
   }
 </script>
 </body>

@@ -33,7 +33,7 @@ Flash the board **before** it goes in the case. The SWD pads are on the back.
 
 ### Time sync and drift trimming
 
-- **Phone (Android, Chrome):** tap the watch, and the tag's link opens the [sync page](../docs/sync/index.html). Tap **Sync the watch** and hold the phone to the watch. The page writes `ET32 T=<unix ms> Z=<utc offset min>` as an NDEF text record. The ST25DV's GPO pulses on the RF write and wakes the MCU, which sets the RTC on the next whole second of the phone's clock. It then stores the time zone and rewrites the tag with its status link, which also removes the sync record.
+- **Phone (Android, Chrome):** tap the watch, and the tag's link opens the [sync page](../docs/sync/index.html). Tap **Start sync** and hold the phone to the watch. The page writes `ET32 T=<unix ms> Z=<utc offset min>` as an NDEF text record. The ST25DV's GPO pulses on the RF write and wakes the MCU, which sets the RTC on the next whole second of the phone's clock. It then stores the time zone and rewrites the tag with its status link, which also removes the sync record.
 - **Any phone:** hold BTN2 to enter sync mode, then press it when the page's clock, or any reference, reads :00. The watch snaps to the nearest minute.
 - **Drift:** each reference sync more than a week after the previous one measures the rate error (`error / time since last sync`). It then moves the RV-3032's aging offset (0.2384 ppm steps, stored in the RTC's EEPROM) to cancel it. A hand-set time is not used as a reference.
 - **Cell swap:** the RTC reports a power-on reset, so the face shows `--:--` and `NOT SET` until a sync or a hand set.
