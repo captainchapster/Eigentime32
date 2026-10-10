@@ -27,7 +27,7 @@ C20,LCD DISP filter,Murata GRM155R71C104KA88D 100 nF 16 V X7R,0402,Sharp Figure 
 C21,NFC VCC decoupling,Murata GRM155R71C104KA88D 100 nF 16 V X7R,0402,
 C22,NFC tuning (DNP),C0G 0402 value set at tuning,0402,fit only if the coil tunes high
 C23,Lid sensor bypass,Murata GRM155R61A105KE15D 1 uF 10 V X5R,0402,datasheet CBYP = 1 uF
-L1,Boost inductor,Wurth 74404024010 1.0 uH WE-LQS,2520 (2.5x2.0x1.2 mm),Isat 2.5 A; 36 mOhm
+L1,Boost inductor,Wurth 74438323010 1.0 uH WE-MAPI,2512 (2.5x2.0x1.2 mm),Isat 2.5 A; 75 mOhm; matches the MAPI-2512 footprint (the WE-LQS 74404024010 named before had a different land pattern and is out of stock)
 R1,Boost FB top,Yageo RC0402FR-07402KL 402k 1%,0402,
 R2,Boost FB bottom,Yageo RC0402FR-07200KL 200k 1%,0402,
 R3,LCD_PWR_EN pull-down,Yageo RC0402FR-071ML 1M 1%,0402,
