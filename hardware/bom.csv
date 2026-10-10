@@ -1,12 +1,46 @@
 Ref,Function,Part,Package,Notes
-U1,RTC,Micro Crystal RV-3032-C7,C7 3.2x1.5 mm,TCXO; CLKOUT 1 Hz to LCD EXTCOMIN
-U2,MCU,STM32L031G6U6,UFQFPN28 4x4 mm,proposed
-U3,LCD boost,TI TPS61099 (adjustable),DSBGA-6 or WSON-6,set to 3.0 V; EN from MCU
-U4,NFC tag,ST ST25DV04K,TBD,VCC from MCU GPIO
-DS1,Display,Sharp LS013B7DH03,26.6x30.3x0.746 mm module,FPC connector TBD
-SW1,Lid sensor,Reed switch (normally closed),TBD,1 MOhm external pull-up
-SW2-SW3,Time set,Tactile switch,TBD,
-BT1,Cell,CR2032 + low-profile SMT holder,TBD,
-C1,RTC backup,47-100 uF X5R MLCC,TBD,on RV-3032 VBACKUP
-Q1,Reverse protection,P-FET,TBD,
-J1,Programming,Tag-Connect pads,TC2030,
+U1,RTC,Micro Crystal RV-3032-C7 32.768kHz 2.5ppm-TA-QC,C7 SON-8 3.2x1.5 mm,TCXO; CLKOUT 1 Hz to LCD EXTCOMIN; backup switchover off (VBACKUP via R9 to VSS)
+U2,MCU,ST STM32L031G6U6,UFQFPN28 4x4 mm,standard pinout (not GxUxS); pin map in docs/power-pins-accuracy.md
+U3,LCD boost,TI TPS61099DRVR (adjustable),WSON-6 2x2 mm,VOUT 3.0 V via R1/R2; EN = BST_EN (R5/C8 delay from LCD_PWR_EN)
+U5,LCD supply switch,TI TPS22916CYFPR,DSBGA-4 (YFP) 0.78x0.78 mm 0.4 mm pitch,ON = LCD_PWR_EN; isolates boost + C2 from the cell when the lid is shut
+U6,LCD SCLK/SI/SCS/DISP buffer,TI SN74LV4T125RGYR,VQFN-14 (RGY) 3.5x3.5 mm,VCC = VLCD; VIH 1.35 V max; Ioff; OE tied low; EP to GND
+U7,LCD EXTCOMIN buffer,TI SN74LV1T34DCKR,SC70-5,VCC = VLCD; input from RTC CLKOUT
+U8,NFC tag,ST ST25DV04KC-IE6C3,UFDFPN8 2x3 mm,VCC from MCU PB0; open-drain GPO; exposed pad floating (ST25DV04K is NRND)
+DS1,Display,Sharp LS013B7DH03,26.6x30.3x0.746 mm module,plugs into J2; not a PCB part
+SW1,Lid sensor,Reed switch (normally closed),TBD,R11 1M pull-up; LID_N on PA2
+SW2-SW3,Time set,Tactile switch,TBD,R12/R13 1M pull-ups; BTN1_N PA3, BTN2_N PB1
+BT1,Cell,CR2032 in Keystone 3034 SMT retainer,4.06 mm above board,
+C2,Boost input bulk (switched),Samsung CL31A107MQHNNNE 100 uF 6.3 V X5R,1206,
+C3,VBAT decoupling (always on),Murata GRM155R71C104KA88D 100 nF 16 V X7R,0402,
+C4,Boost CIN,Murata GRM188R60J106ME84D 10 uF 6.3 V X5R,0603,
+C5-C6,Boost COUT,Murata GRM188R60J106ME84D 10 uF 6.3 V X5R,0603,20 uF nominal minimum per datasheet
+C7,VBAT decoupling / U5 CIN (always on),Murata GRM155R61A105KE15D 1 uF 10 V X5R,0402,
+C8,Boost EN delay,Murata GRM155R61A474KE15D 470 nF 10 V X5R,0402,with R5: tau 0.47 s
+C9,RTC VDD decoupling,Murata GRM155R71C104KA88D 100 nF 16 V X7R,0402,
+C10-C12,MCU VDD/VDDA decoupling,Murata GRM155R71C104KA88D 100 nF 16 V X7R,0402,
+C13,MCU VDDA,Murata GRM155R61A105KE15D 1 uF 10 V X5R,0402,
+C14,MCU VDD bulk (DNP),Murata GRM188R60J106ME84D 10 uF 6.3 V X5R,0603,not fitted: IR leakage on always-on VBAT
+C15,NRST filter,Murata GRM155R71C104KA88D 100 nF 16 V X7R,0402,
+C16-C17,Buffer VCC decoupling,Murata GRM155R71C104KA88D 100 nF 16 V X7R,0402,
+C18-C19,LCD VDD/VDDA,Murata GRM155R61A105KE15D 1 uF 10 V X5R,0402,Sharp: >= 1 uF each
+C20,LCD DISP filter,Murata GRM155R71C104KA88D 100 nF 16 V X7R,0402,Sharp Figure 9-1: DISP to VSS
+C21,NFC VCC decoupling,Murata GRM155R71C104KA88D 100 nF 16 V X7R,0402,
+C22,NFC tuning (DNP),C0G 0402 value set at tuning,0402,fit only if the coil tunes high
+L1,Boost inductor,Wurth 74404024010 1.0 uH WE-LQS,2520 (2.5x2.0x1.2 mm),Isat 2.5 A; 36 mOhm
+R1,Boost FB top,Yageo RC0402FR-07402KL 402k 1%,0402,
+R2,Boost FB bottom,Yageo RC0402FR-07200KL 200k 1%,0402,
+R3,LCD_PWR_EN pull-down,Yageo RC0402FR-071ML 1M 1%,0402,
+R4,Inrush limit,Yageo RC0402FR-07470RL 470R 1%,0402,between U5 VOUT and VBST_IN
+R5,Boost EN delay,Yageo RC0402FR-071ML 1M 1%,0402,LCD_PWR_EN to BST_EN
+R6-R7,I2C pull-ups (SDA/SCL),Yageo RC0402FR-0710KL 10k 1%,0402,to VBAT; draw only while a line is low
+R8,RTC INT pull-up,Yageo RC0402FR-07470KL 470k 1%,0402,to VBAT
+R9,RTC VBACKUP tie-down,Yageo RC0402FR-0710KL 10k 1%,0402,required when switchover is unused
+R10,BOOT0 pull-down,Yageo RC0402FR-0710KL 10k 1%,0402,
+R11-R13,Reed/button pull-ups,Yageo RC0402FR-071ML 1M 1%,0402,to VBAT
+R14,NFC GPO pull-up,Yageo RC0402FR-071ML 1M 1%,0402,to VBAT; works with VCC off (RF-powered GPO)
+R15,NFC_VCC pull-down,Yageo RC0402FR-07100KL 100k 1%,0402,keeps VCC from floating (KC errata)
+Q1,Reverse protection,Diodes DMG2305UX-7 P-FET,SOT-23,gate to GND; Vgs(th) -0.9 V max
+J1,Programming,Tag-Connect TC2030-IDC-NL pads,TC2030 no-legs,SWDIO/SWCLK/NRST/VBAT/GND
+J2,LCD FPC connector,Panasonic AYF531035,0.5 mm 10-pin back lock 1.0 mm high,top and bottom contact; project footprint from Panasonic land pattern
+AE1,NFC antenna,PCB loop coil,39 mm OD 7-8 turns 0.15/0.15 mm,~4.8 uH target with 28.5 pF internal; not a BOM part
+TP1,RTC CLKOUT test pad,Test pad,1.0 mm pad,1 Hz accuracy measurement
