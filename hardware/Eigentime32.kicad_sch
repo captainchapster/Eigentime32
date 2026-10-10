@@ -1,0 +1,17 @@
+(kicad_sch
+	(version 20250114)
+	(generator "eeschema")
+	(generator_version "9.0")
+	(uuid "6b2f6c1e-3a0d-4e6b-9a51-0e5c2f3d7a10")
+	(paper "A4")
+	(title_block
+		(title "Eigentime32")
+	)
+	(lib_symbols)
+	(sheet_instances
+		(path "/"
+			(page "1")
+		)
+	)
+	(embedded_fonts no)
+)
