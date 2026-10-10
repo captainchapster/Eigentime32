@@ -15,7 +15,8 @@
 | 2026-10-10 | STM32L031G6U6 (UFQFPN28) as the MCU | 19 usable I/O after SWD; pin map in power-pins-accuracy.md §5 |
 | 2026-10-10 | Lid sensor: Allegro CT8132SK-IS3 TMR switch (push-pull, no pull-up) instead of an NC reed | SMD normally-closed reeds are Form C parts ~27 mm long (Littelfuse MDSM-DT) and don't fit; the Coto RR122 is obsolete. Costs 190 nA typ / 900 nA max average |
 | 2026-10-10 | Buttons: Panasonic EVQ-P7A01P side-push, 1.35 mm high, actuators at the board edge; 1 MΩ external pull-ups, internal pull-ups off | Operated through the case wall; a held button costs 3 µA, not ~75 µA |
-| 2026-10-10 | Case orientation (front view): buttons at 12 o'clock, hinge at 9, lid magnet / sensor at 3, LCD FPC at 6 | Lid sensor opposite the hinge; FPC folds round the 6 o'clock edge |
+| 2026-10-10 | Case orientation (front view): buttons at ~10 and ~2 o'clock, hinge at 9, lid magnet / sensor at ~4, LCD FPC at 6, CR2032 slides in from 12 | Lid sensor roughly opposite the hinge; FPC folds round the 6 o'clock edge |
+| 2026-10-10 | Keep a 21 mm wide no-parts channel from the holder to the 12 o'clock edge (rule area on the back) | The Keystone 3034 is a tunnel retainer with ~0.5 mm headroom over the cell, so the CR2032 slides in flat and its trailing edge starts beyond the board edge: the case needs a slot at 12 o'clock, or the board comes out for a swap |
 | 2026-10-10 | NFC coil: 8-turn F.Cu spiral, 38.1 mm OD, 0.15/0.15 mm, terminals at 4-5 o'clock | 0.9 mm under the planned 39 mm so the outer terminal via fits inside the 0.3 mm edge clearance; ~5.1 uH free air |
 | 2026-10-10 | No copper pour anywhere on the board | The coil encloses the whole board; a ground pour inside the loop would kill the NFC coupling |
 | 2026-10-10 | LCD inputs go through VLCD-powered buffers | LCD VIH is VDD − 0.1 V; the MCU on VBAT (down to ~2.2 V) can't meet it at VLCD 3.0 V |
