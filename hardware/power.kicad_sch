@@ -1568,7 +1568,7 @@
 		(uuid "e0e68afc-db0d-59c0-8ec9-43fc57a5abee")
 		(property "Reference" "BT1" (at 34.29 68.58 0) (effects (font (size 1.27 1.27)) (justify left)))
 		(property "Value" "CR2032" (at 34.29 71.12 0) (effects (font (size 1.27 1.27)) (justify left)))
-		(property "Footprint" "Battery:BatteryHolder_Keystone_3034_1x20mm" (at 30.48 71.12 0) (effects (font (size 1.27 1.27)) (hide yes)))
+		(property "Footprint" "Eigentime32:BatteryHolder_Keystone_3034_1x20mm_SmallNegPad" (at 30.48 71.12 0) (effects (font (size 1.27 1.27)) (hide yes)))
 		(property "Datasheet" "https://www.digikey.com/en/products/detail/keystone-electronics/3034/4499289" (at 30.48 71.12 0) (effects (font (size 1.27 1.27)) (hide yes)))
 		(property "Description" "CR2032 SMT retainer, 4.06 mm above board" (at 30.48 71.12 0) (effects (font (size 1.27 1.27)) (hide yes)))
 		(property "Manufacturer" "Keystone Electronics" (at 30.48 71.12 0) (effects (font (size 1.27 1.27)) (hide yes)))

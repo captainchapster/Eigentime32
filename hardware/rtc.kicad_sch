@@ -976,7 +976,7 @@
 		(instances (project "Eigentime32" (path "/6b2f6c1e-3a0d-4e6b-9a51-0e5c2f3d7a10/b4d2f3a5-6c7e-4f80-9b0c-1d2e3f4a5b6c" (reference "#PWR003") (unit 1))))
 	)
 	(symbol (lib_id "Connector:TestPoint") (at 154.94 91.44 0) (unit 1)
-		(exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no)
+		(exclude_from_sim no) (in_bom no) (on_board yes) (dnp no)
 		(uuid "4ff8c402-6ca0-578d-ab9f-7ca570e00443")
 		(property "Reference" "TP1" (at 152.4 95.25 0) (effects (font (size 1.27 1.27)) (justify left)))
 		(property "Value" "CLKOUT" (at 152.4 97.79 0) (effects (font (size 1.27 1.27)) (justify left)))

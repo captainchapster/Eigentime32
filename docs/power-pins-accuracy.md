@@ -8,7 +8,7 @@ Confirmed by Alex 2026-10-10: round board, TPS61099 boost, keep NFC. **Size is t
 
 **The display sets the diameter, not the board.** The LS013B7DH03 outline is **26.6 × 30.3 × 0.746 mm** (Mouser listing), and the 30.3 mm side includes the glass ledge where the FPC leaves. A rectangle that size needs a circle of at least **40.3 mm** (its diagonal), so:
 - Case inner diameter ~41 mm, outer ~**44 mm** with 1.5 mm printed walls. That is still small for a pocket watch (typical 45–50 mm).
-- Since the diameter is fixed anyway, the PCB uses it: **40 mm round, 0.8 mm thick**. The front is kept bare under the LCD (foam tape mount). All parts sit on the back in the ring around the cell, and the FPC folds round the edge to a back-side connector.
+- Since the diameter is fixed anyway, the PCB uses it: **40 mm round, 0.8 mm thick**. The front under the LCD carries only the FPC connector and LCD buffers (parts ≤ 1.1 mm high). Most parts sit on the back in the ring around the cell. The LCD's FPC folds 180° under the glass into a front-side connector, and the LCD buffers sit beside it, under the panel, which rests on a 1.2 mm frame (see decisions.md).
 - **The real compactness lever is thickness**, mostly set by the cell.
 
 | Layer | CR2032 build (mm) |
@@ -32,7 +32,8 @@ CR2032 (BT1) ─ Q1 DMG2305UX P-FET reverse protection ─ VBAT (always on, 2.0�
    │   VBAT decoupling: 100 nF + 1 µF (power sheet), 100 nF (RTC), 3 × 100 nF + 1 µF (MCU)
    ├─ RV-3032-C7 VDD                (~160 nA typ, 210 nA max at 25 °C); VBACKUP via 10k to VSS
    ├─ STM32L031G6U6 VDD/VDDA        (stop mode, sub-µA)
-   ├─ Reed and button pull-ups      (1 MΩ each, draw only while the contact is closed)
+   ├─ CT8132 lid sensor             (190 nA typ, 900 nA max)
+   ├─ Button pull-ups               (1 MΩ each, draw only while pressed)
    ├─ I2C pull-ups 10k, INT 470k    (draw only while a line is low)
    ├─ ST25DV04K VCC                 (from MCU PB0, only while awake)
    └─ U5 TPS22916C load switch, ON = LCD_PWR_EN (ISD 10 nA typ, 100 nA max)
@@ -61,10 +62,11 @@ CR2032 (BT1) ─ Q1 DMG2305UX P-FET reverse protection ─ VBAT (always on, 2.0�
 - A ceramic bridge would need 36 µF (270 nA, 25 °C) to 100 µF (750 nA, −40 to 85 °C) to hold 60 s from 1.75 V down to VLOW 1.3 V. But an MLCC's IR spec (50 MΩ·µF) is a 50 s self-discharge time constant at any size, so none can be guaranteed to bridge 60 s, and worst-case standby leakage would be 2–5.5 µA.
 - Without it, a cell swap (about once a decade) resets the time; NFC sets it again. The aging offset (EEPROM C1h) and the rest of the configuration EEPROM survive.
 
-## 4. Lid sensor current trap
-- With an NC reed switch the contact is open when the lid is shut, so there's no draw. **When the lid is open the switch shorts the pull-up to ground.**
-- With the MCU's internal ~40 kΩ pull-up that's ~75 µA while open, which would nearly double the budget.
-- As drawn: an external **1 MΩ** pull-up (~3 µA while open), internal pull-up disabled. The two buttons use the same arrangement, so a button held down in a pocket costs 3 µA rather than 75 µA.
+## 4. Lid sensor
+- An NC reed would draw nothing with the lid shut, but SMD normally-closed reeds are Form C parts about 27 mm long (Littelfuse MDSM-DT), which don't fit the ring around the cell, and the small SMD reeds (Coto CT05/CT10) are normally-open only.
+- **As drawn: Allegro CT8132SK-IS3**, an omnipolar TMR switch (CT813x datasheet Rev. 10): push-pull output, low while the lid magnet is near, 9 G operate point, 10 Hz sampling, **190 nA typ / 900 nA max** average at 3.3 V (145 / 700 nA at 1.8 V), 1 µF bypass. No pull-up needed. The Coto RedRock RR122 was the first choice but is obsolete (RR1yy EOL 2025); DigiKey lists the CT8132SK-IS3 as its direct substitute.
+- Budget impact: ~0.19 µA typical out of the ~1 µA average, so the sensor is now the second-largest standing load after the RTC.
+- Buttons use 1 MΩ external pull-ups (internal pull-ups off), so a button held down in a pocket costs 3 µA rather than ~75 µA.
 
 ## 5. MCU pin map (STM32L031G6U6, UFQFPN28, standard pinout)
 The UFQFPN28 package has 21 I/O, 19 once SWD is reserved (draft 1's "~25" was wrong). Wake sources use distinct EXTI lines; any EXTI line wakes Stop mode.
@@ -73,7 +75,7 @@ The UFQFPN28 package has 21 I/O, 19 once SWD is reserved (draft 1's "~25" was wr
 |---|---|---|---|
 | 6 | PA0 | RTC_INT | EXTI0, WKUP1 |
 | 7 | PA1 | LCD_PWR_EN | to TPS22916C ON and boost EN delay |
-| 8 | PA2 | LID_N | EXTI2, WKUP3; 1M pull-up |
+| 8 | PA2 | LID_CLOSED_N | EXTI2, WKUP3; CT8132 push-pull output, no pull-up |
 | 9 | PA3 | BTN1_N | EXTI3; 1M pull-up |
 | 10 | PA4 | LCD_SCS | GPIO (SCS is active high) |
 | 11 | PA5 | LCD_SCLK | SPI1_SCK, AF0 |
@@ -84,12 +86,12 @@ The UFQFPN28 package has 21 I/O, 19 once SWD is reserved (draft 1's "~25" was wr
 | 22 | PA14 | SWCLK | TC2030 |
 | 14 | PB0 | NFC_VCC | ST25DV04K supply |
 | 15 | PB1 | BTN2_N | EXTI1; 1M pull-up |
-| 25 | PB6 | SCL | I2C1_SCL, AF1 |
-| 26 | PB7 | SDA | I2C1_SDA, AF1 |
+| 19 | PA9 | SCL | I2C1_SCL (moved from PB6 for routing: faces the RTC/NFC side) |
+| 20 | PA10 | SDA | I2C1_SDA (moved from PB7) |
 | 4 | NRST | NRST | 100 nF, TC2030 |
 | 27 | BOOT0 | – | 10k to GND |
 
-**Spare:** PA9, PA10 (USART2 TX/RX, good for a debug UART), PA15, PB3, PC14, PC15.
+**Spare:** PB6, PB7 (USART2 TX/RX, good for a debug UART), PA15, PB3, PC14, PC15.
 - Battery voltage is measured on VREFINT internally, so no pin is needed.
 - Decoupling per ST: 100 nF on each VDD pin, 100 nF + 1 µF on VDDA. ST's 10 µF VDD bulk (C14) is fitted as **DNP**: its IR spec allows ~0.6 µA leakage on always-on VBAT. Fit it only if wake bursts sag VBAT too far.
 
@@ -109,5 +111,5 @@ The UFQFPN28 package has 21 I/O, 19 once SWD is reserved (draft 1's "~25" was wr
 ## 7. Next steps
 1. LCD sheet: FPC connector, VLCD-powered input buffers on SCLK/SI/SCS/DISP/EXTCOMIN, Sharp's recommended capacitors.
 2. NFC sheet: ST25DV04K, GPO pull-up, and how its I2C pins behave while NFC_VCC is off **(verify)**.
-3. Footprints still TBD: reed switch, buttons, LCD FPC connector.
+3. Layout: placement done on the "layout" branch; routing next.
 4. Then the case CAD around the finished board outline.
