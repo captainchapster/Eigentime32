@@ -1,13 +1,14 @@
 # Eigentime32 fabrication files (JLCPCB)
 
 Generated 2026-10-10 from `hardware/Eigentime32.kicad_pcb` on main (c302c13).
-Before export: DRC 0 violations, 0 unconnected, schematic parity clean; ERC 0 violations.
+Before export (regenerated 2026-10-10 for the J2 paste change): DRC 0 violations, 0 unconnected, schematic parity clean; ERC 0 violations.
 
 ## Pre-order review (2026-10-10, main 8dfe562)
 
 - KiCad 9.0.7: ERC 0, DRC 0 (0 unconnected, schematic parity clean). Gerbers and drills regenerated from the board match `gerbers/` line for line.
 - Pinouts checked against datasheets: RV-3032-C7 (EVI tied to VDD; the manual only forbids floating or VBACKUP), TPS22916C YFP, TPS61099 DRV (402k/200k gives 3.01 V), CT8132SK SOT-23, ST25DV04KC UFDFPN8 (EP left floating as ST requires), DMG2305UX, SN74LV4T125 RGY, SN74LV1T34 DCK, LS013B7DH03 FPC, Tag-Connect (matches KiCad's footprint, mirrored on the back).
-- J2 land pattern matches every number in Panasonic's Y5B pattern (0.3 x 0.8 pads, 0.4 x 0.8 terminals 1.0 mm outside the end pins, 3.30 mm overall depth). Still to confirm by eye in Panasonic's Y5B drawing: the contact tails are on the FPC insertion side, the lever on the far side. The layout assumes this (opening toward 6 o'clock).
+- J2 land pattern matches every number in Panasonic's Y5B pattern (0.3 x 0.8 pads, 0.4 x 0.8 terminals 1.0 mm outside the end pins, 3.30 mm overall depth). The Y5B side view confirms the contact tails are on the FPC insertion side and the lever on the far side, as the layout assumes (opening toward 6 o'clock).
+- J2 paste follows Panasonic's metal mask pattern: 0.25 x 0.31 mm openings on the signal pads, 0.2 mm in from the outer end (was full pad), to keep solder out of the contacts. Only `F_Paste` changed; DRC/ERC re-run clean.
 - Before paying: re-check stock for U9 (4 at JLC, need 5), U1 and U8, and step through every rotation below in JLC's preview.
 
 ## Files
